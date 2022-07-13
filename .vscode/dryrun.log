@@ -1,0 +1,5 @@
+make --dry-run --always-make --keep-going --print-directory
+make: Entering directory '/home/avinil/GoProjects/myProjects/POC1'
+cp application.yml.sample application.yml
+make: Leaving directory '/home/avinil/GoProjects/myProjects/POC1'
+ 
