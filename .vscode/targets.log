@@ -1,4 +1,6 @@
 make all --print-data-base --no-builtin-variables --no-builtin-rules --question
+make: *** No rule to make target 'all'.  Stop.
+
 # GNU Make 4.2.1
 # Built for x86_64-pc-linux-gnu
 # Copyright (C) 1988-2016 Free Software Foundation, Inc.
@@ -6,7 +8,7 @@ make all --print-data-base --no-builtin-variables --no-builtin-rules --question
 # This is free software: you are free to change and redistribute it.
 # There is NO WARRANTY, to the extent permitted by law.
 
-# Make data base, printed on Thu Jul 14 11:17:23 2022
+# Make data base, printed on Thu Jul 14 16:46:40 2022
 
 # Variables
 
@@ -49,7 +51,7 @@ VTE_VERSION = 6003
 # environment
 VSCODE_NLS_CONFIG = {"locale":"en-gb","availableLanguages":{},"_languagePackSupport":true}
 # environment
-JOURNAL_STREAM = 8:51633
+JOURNAL_STREAM = 8:51970
 # environment
 XDG_CONFIG_DIRS = /etc/xdg/xdg-ubuntu:/etc/xdg
 # makefile (from 'Makefile', line 1)
@@ -65,15 +67,13 @@ XDG_DATA_DIRS = /usr/share/ubuntu:/usr/local/share/:/usr/share/:/var/lib/snapd/d
 # environment
 VSCODE_AMD_ENTRYPOINT = vs/workbench/api/node/extensionHostProcess
 # environment
-DBUS_SESSION_BUS_ADDRESS = unix:path=/run/user/1001/bus,guid=ba0516d5e7f869dcce3d243e62cf87c6
+DBUS_SESSION_BUS_ADDRESS = unix:path=/run/user/1001/bus,guid=8dd3ef2890d4f4a66cac47a862cffafa
 # environment
 VSCODE_VERBOSE_LOGGING = true
 # environment
 _ = /usr/bin/code
 # environment
-INFOPATH = /home/linuxbrew/.linuxbrew/share/info:
-# environment
-MANAGERPID = 2079
+MANAGERPID = 2054
 # environment
 LESSOPEN = | /usr/bin/lesspipe %s
 # environment
@@ -83,11 +83,11 @@ GOPROXY = https://proxy.golang.org,direct
 # default
 MAKE_HOST := x86_64-pc-linux-gnu
 # environment
-PATH = /home/linuxbrew/.linuxbrew/bin:/home/linuxbrew/.linuxbrew/sbin:/home/avinil/.local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin:/usr/local/go/bin
+PATH = /home/avinil/.local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin:/usr/local/go/bin
 # environment
 GPG_AGENT_INFO = /run/user/1001/gnupg/S.gpg-agent:0:1
 # environment
-SESSION_MANAGER = local/avinil-Latitude-3420:@/tmp/.ICE-unix/2311,unix/avinil-Latitude-3420:/tmp/.ICE-unix/2311
+SESSION_MANAGER = local/avinil-Latitude-3420:@/tmp/.ICE-unix/2272,unix/avinil-Latitude-3420:/tmp/.ICE-unix/2272
 # environment
 XDG_RUNTIME_DIR = /run/user/1001
 # environment
@@ -99,7 +99,7 @@ VSCODE_LOG_STACK = false
 # environment
 ELECTRON_RUN_AS_NODE = 1
 # environment
-INVOCATION_ID = 996e1be8d99849abb6ba590fb070d898
+INVOCATION_ID = 5f31d4e65154429793ac06e037515b04
 # default
 .FEATURES := target-specific order-only second-expansion else-if shortest-stem undefine oneshell archives jobserver output-sync check-symlink load
 # environment
@@ -119,19 +119,17 @@ PWD = /home/avinil/GoProjects/myProjects/POC1
 # default
 .LOADED := 
 # environment
-SSH_AGENT_PID = 2273
+SSH_AGENT_PID = 2234
 # environment
 ORIGINAL_XDG_CURRENT_DESKTOP = ubuntu:GNOME
 # environment
 GTK_MODULES = gail:atk-bridge
 # environment
-MANPATH = /home/linuxbrew/.linuxbrew/share/man:
-# environment
 GOMODCACHE = /home/avinil/go/pkg/mod
 # environment
 HOME = /home/avinil
 # environment
-HOMEBREW_CELLAR = /home/linuxbrew/.linuxbrew/Cellar
+LESSCLOSE = /usr/bin/lesspipe %s %s
 # environment
 VSCODE_CLI = 1
 # environment
@@ -142,8 +140,6 @@ LOGNAME = avinil
 APPLICATION_INSIGHTS_NO_DIAGNOSTIC_CHANNEL = 1
 # environment
 ELECTRON_NO_ATTACH_CONSOLE = 1
-# environment
-LESSCLOSE = /usr/bin/lesspipe %s %s
 # environment
 VSCODE_HANDLES_UNCAUGHT_ERRORS = true
 # environment
@@ -165,7 +161,7 @@ SHLVL = 1
 # environment
 GNOME_SHELL_SESSION_MODE = ubuntu
 # environment
-VSCODE_IPC_HOOK_EXTHOST = /run/user/1001/vscode-ipc-dfa99c63-cc0a-44b1-9343-527294f2e0d3.sock
+VSCODE_IPC_HOOK_EXTHOST = /run/user/1001/vscode-ipc-bdc16d2f-556f-40c1-a705-aa9e9e0445c6.sock
 # default
 MAKE_VERSION := 4.2.1
 # environment
@@ -178,8 +174,6 @@ XDG_CURRENT_DESKTOP = Unity
 %D = $(patsubst %/,%,$(dir $%))
 # default
 MAKE_COMMAND := make
-# environment
-OLDPWD = /home/avinil/GoProjects/myProjects
 # default
 .VARIABLES := 
 # automatic
@@ -194,16 +188,12 @@ MAKEFLAGS = pqrR
 MFLAGS = -pqrR
 # automatic
 *D = $(patsubst %/,%,$(dir $*))
-# environment
-HOMEBREW_PREFIX = /home/linuxbrew/.linuxbrew
 # automatic
 +D = $(patsubst %/,%,$(dir $+))
 # environment
 GDK_BACKEND = x11
 # automatic
 +F = $(notdir $+)
-# environment
-HOMEBREW_REPOSITORY = /home/linuxbrew/.linuxbrew/Homebrew
 # environment
 QT_ACCESSIBILITY = 1
 # default
@@ -219,13 +209,13 @@ DBUS_STARTER_BUS_TYPE = session
 # makefile (from 'Makefile', line 4)
 ALL_PACKAGES = $(shell go list ./... | grep -v "vendor")
 # environment
-GNOME_TERMINAL_SCREEN = /org/gnome/Terminal/screen/51a18a99_f766_41b7_b59c_cd95afe8d9a3
+GNOME_TERMINAL_SCREEN = /org/gnome/Terminal/screen/e8d0c782_84d8_46b0_898c_2d69bf212cc7
 # automatic
 ^F = $(notdir $^)
 # makefile (from 'Makefile', line 2)
 DB_NAME = boilerplate_development
 # environment
-GNOME_TERMINAL_SERVICE = :1.89
+GNOME_TERMINAL_SERVICE = :1.77
 # default
 SUFFIXES := 
 # environment
@@ -243,11 +233,11 @@ LANG = C
 # environment
 TERM = xterm-256color
 # environment
-VSCODE_PID = 13382
+VSCODE_PID = 2632
 # environment
-DBUS_STARTER_ADDRESS = unix:path=/run/user/1001/bus,guid=ba0516d5e7f869dcce3d243e62cf87c6
+DBUS_STARTER_ADDRESS = unix:path=/run/user/1001/bus,guid=8dd3ef2890d4f4a66cac47a862cffafa
 # variable set hash-table stats:
-# Load=118/1024=12%, Rehash=0, Collisions=17/143=12%
+# Load=112/1024=11%, Rehash=0, Collisions=15/137=11%
 
 # Pattern-specific Variable Values
 
@@ -287,15 +277,13 @@ db.create:
 #  recipe to execute (from 'Makefile', line 39):
 	createdb -h $(DB_HOST) -U $(DB_USER) -O $(DB_USER) $(DB_NAME)
 
- 
-make: *** No rule to make target 'all'.  Stop.
-
 build-deps:
 #  Implicit rule search has not been done.
 #  Modification time never checked.
 #  File has not been updated.
 #  recipe to execute (from 'Makefile', line 12):
 	dep ensure -v
+ 
 
 db.reset: db.drop db.create db.migrate
 #  Implicit rule search has not been done.
@@ -417,6 +405,6 @@ db.migrate: db.create_extension
 # strcache performance: lookups = 78 / hit rate = 41%
 # hash-table stats:
 # Load=46/8192=1%, Rehash=0, Collisions=1/78=1%
-# Finished Make data base on Thu Jul 14 11:17:23 2022
+# Finished Make data base on Thu Jul 14 16:46:40 2022
 
  

@@ -1,6 +1,7 @@
 package user
 
 import (
+	"bankapp/app"
 	"bankapp/db"
 	"context"
 
@@ -10,6 +11,7 @@ import (
 type Service interface {
 	update(ctx context.Context, req updateRequest, userId string) (err error)
 	deleteByID(ctx context.Context, id string) (err error)
+	listUsers(ctx context.Context) (users []db.User, err error)
 }
 
 type userService struct {
@@ -48,6 +50,15 @@ func (cs *userService) deleteByID(ctx context.Context, id string) (err error) {
 		return
 	}
 
+	return
+}
+
+func (cs *userService) listUsers(ctx context.Context) (users []db.User, err error) {
+	users, err = cs.store.ListUsers(ctx)
+	if err != nil {
+		app.GetLogger().Warn("did not find records")
+		return
+	}
 	return
 }
 

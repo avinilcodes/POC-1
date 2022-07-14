@@ -74,3 +74,24 @@ func DeleteByID(service Service) http.HandlerFunc {
 		api.Success(rw, http.StatusOK, api.Response{Message: "Deleted user Successfully"})
 	})
 }
+
+func ListUserHandler(service Service) http.HandlerFunc {
+	return http.HandlerFunc(func(rw http.ResponseWriter, req *http.Request) {
+		users, err := service.listUsers(req.Context())
+		if err != nil {
+			app.GetLogger().Warn("error fetching users")
+			rw.WriteHeader(http.StatusInternalServerError)
+			return
+		}
+
+		respBytes, err := json.Marshal(users)
+		if err != nil {
+			app.GetLogger().Warn("error while marshilling users")
+			rw.WriteHeader(http.StatusInternalServerError)
+			return
+		}
+
+		rw.Header().Add("Content-Type", "application/json")
+		rw.Write(respBytes)
+	})
+}
