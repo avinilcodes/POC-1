@@ -12,6 +12,7 @@ type Service interface {
 	update(ctx context.Context, req updateRequest, userId string) (err error)
 	deleteByID(ctx context.Context, id string) (err error)
 	listUsers(ctx context.Context) (users []db.User, err error)
+	addUser(ctx context.Context, user db.User) (err error)
 }
 
 type userService struct {
@@ -61,7 +62,14 @@ func (cs *userService) listUsers(ctx context.Context) (users []db.User, err erro
 	}
 	return
 }
-
+func (cs *userService) addUser(ctx context.Context, user db.User) (err error) {
+	err = cs.store.CreateUser(ctx, user)
+	if err != nil {
+		app.GetLogger().Warn("Error while adding user", err.Error())
+		return
+	}
+	return
+}
 func NewService(s db.Storer, l *zap.SugaredLogger) Service {
 	return &userService{
 		store:  s,

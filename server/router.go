@@ -9,7 +9,7 @@ import (
 )
 
 const (
-	versionHeader = "Accept"
+//versionHeader = "Accept"
 )
 
 func initRouter(dep dependencies) (router *mux.Router) {
@@ -26,6 +26,9 @@ func initRouter(dep dependencies) (router *mux.Router) {
 
 	//ListUsers
 	router.HandleFunc("/users", user.ListUserHandler(dep.UserServices)).Methods(http.MethodGet)
+
+	//Add user
+	router.HandleFunc("/user", user.AddUserHandler(dep.UserServices)).Methods(http.MethodPost)
 
 	return
 }
