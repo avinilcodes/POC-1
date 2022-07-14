@@ -1,6 +1,4 @@
 make all --print-data-base --no-builtin-variables --no-builtin-rules --question
-make: *** No rule to make target 'all'.  Stop.
-
 # GNU Make 4.2.1
 # Built for x86_64-pc-linux-gnu
 # Copyright (C) 1988-2016 Free Software Foundation, Inc.
@@ -8,7 +6,7 @@ make: *** No rule to make target 'all'.  Stop.
 # This is free software: you are free to change and redistribute it.
 # There is NO WARRANTY, to the extent permitted by law.
 
-# Make data base, printed on Thu Jul 14 16:46:40 2022
+# Make data base, printed on Thu Jul 14 22:04:49 2022
 
 # Variables
 
@@ -161,7 +159,7 @@ SHLVL = 1
 # environment
 GNOME_SHELL_SESSION_MODE = ubuntu
 # environment
-VSCODE_IPC_HOOK_EXTHOST = /run/user/1001/vscode-ipc-bdc16d2f-556f-40c1-a705-aa9e9e0445c6.sock
+VSCODE_IPC_HOOK_EXTHOST = /run/user/1001/vscode-ipc-9d0033b3-feac-40d2-b6d3-8b9ea131331c.sock
 # default
 MAKE_VERSION := 4.2.1
 # environment
@@ -174,6 +172,8 @@ XDG_CURRENT_DESKTOP = Unity
 %D = $(patsubst %/,%,$(dir $%))
 # default
 MAKE_COMMAND := make
+# environment
+OLDPWD = /home/avinil/GoProjects/POC2
 # default
 .VARIABLES := 
 # automatic
@@ -194,6 +194,8 @@ MFLAGS = -pqrR
 GDK_BACKEND = x11
 # automatic
 +F = $(notdir $+)
+# environment
+NO_AT_BRIDGE = 1
 # environment
 QT_ACCESSIBILITY = 1
 # default
@@ -237,7 +239,7 @@ VSCODE_PID = 2632
 # environment
 DBUS_STARTER_ADDRESS = unix:path=/run/user/1001/bus,guid=8dd3ef2890d4f4a66cac47a862cffafa
 # variable set hash-table stats:
-# Load=112/1024=11%, Rehash=0, Collisions=15/137=11%
+# Load=114/1024=11%, Rehash=0, Collisions=15/139=11%
 
 # Pattern-specific Variable Values
 
@@ -245,9 +247,9 @@ DBUS_STARTER_ADDRESS = unix:path=/run/user/1001/bus,guid=8dd3ef2890d4f4a66cac47a
 
 # Directories
 
-# . (device 66307, inode 20447783): 25 files, no impossibilities.
+# . (device 66307, inode 20447783): 24 files, no impossibilities.
 
-# 25 files, no impossibilities in 1 directories.
+# 24 files, no impossibilities in 1 directories.
 
 # Implicit Rules
 
@@ -283,7 +285,6 @@ build-deps:
 #  File has not been updated.
 #  recipe to execute (from 'Makefile', line 12):
 	dep ensure -v
- 
 
 db.reset: db.drop db.create db.migrate
 #  Implicit rule search has not been done.
@@ -291,6 +292,9 @@ db.reset: db.drop db.create db.migrate
 #  File has not been updated.
 
 db.create_extension:
+ 
+make: *** No rule to make target 'all'.  Stop.
+
 #  Implicit rule search has not been done.
 #  Modification time never checked.
 #  File has not been updated.
@@ -399,12 +403,12 @@ db.migrate: db.create_extension
 
 # No general ('VPATH' variable) search path.
 
-# strcache buffers: 1 (0) / strings = 46 / storage = 389 B / avg = 8 B
-# current buf: size = 8162 B / used = 389 B / count = 46 / avg = 8 B
+# strcache buffers: 1 (0) / strings = 45 / storage = 381 B / avg = 8 B
+# current buf: size = 8162 B / used = 381 B / count = 45 / avg = 8 B
 
-# strcache performance: lookups = 78 / hit rate = 41%
+# strcache performance: lookups = 77 / hit rate = 41%
 # hash-table stats:
-# Load=46/8192=1%, Rehash=0, Collisions=1/78=1%
-# Finished Make data base on Thu Jul 14 16:46:40 2022
+# Load=45/8192=1%, Rehash=0, Collisions=1/77=1%
+# Finished Make data base on Thu Jul 14 22:04:49 2022
 
  
