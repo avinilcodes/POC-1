@@ -56,7 +56,7 @@ func (cs *userService) deleteByID(ctx context.Context, id string) (err error) {
 func (cs *userService) listUsers(ctx context.Context) (users []db.User, err error) {
 	users, err = cs.store.ListUsers(ctx)
 	if err != nil {
-		app.GetLogger().Warn("did not find records")
+		app.GetLogger().Warn(err.Error())
 		return
 	}
 	return

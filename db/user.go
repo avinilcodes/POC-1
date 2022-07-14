@@ -24,11 +24,13 @@ const (
 )
 
 type User struct {
-	ID       string `json:"id" db:"id"`
-	Name     string `json:"name" db:"name"`
-	Email    string `json:"email" db:"email"`
-	Password string `json:"password" db:"password"`
-	RoleType string `json:"role_type" db:"role_type"`
+	ID        string    `json:"id" db:"id"`
+	Name      string    `json:"name" db:"name"`
+	Email     string    `json:"email" db:"email"`
+	Password  string    `json:"password" db:"password"`
+	RoleType  string    `json:"role_type" db:"role_type"`
+	CreatedAt time.Time `json:"created_at" db:"created_at"`
+	UpdatedAt time.Time `json:"updated_at" db:"updated_at"`
 }
 
 func (s *store) UpdateUser(ctx context.Context, user *User) (err error) {
@@ -88,21 +90,7 @@ func CreateAccountant(s *store) (err error) {
 
 func (s *store) ListUsers(ctx context.Context) (users []User, err error) {
 	err = WithDefaultTimeout(ctx, func(ctx context.Context) error {
-		return s.db.GetContext(ctx, &users, findAllQuery)
+		return s.db.SelectContext(ctx, &users, findAllQuery)
 	})
 	return
-	// rows, err := s.db.Query(findAllQuery)
-	// if err != nil {
-	// 	app.GetLogger().Warn("did not find records")
-	// 	return nil, err
-	// }
-	// defer rows.Close()
-	// for rows.Next() {
-	// 	var u User
-	// 	if err := rows.Scan(&u.ID, &u.Name, &u.Email, &u.Password, &u.RoleType); err != nil {
-	// 		return nil, err
-	// 	}
-	// 	users = append(users, u)
-	// }
-	// return users, nil
 }
