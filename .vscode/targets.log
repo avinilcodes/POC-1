@@ -6,7 +6,7 @@ make all --print-data-base --no-builtin-variables --no-builtin-rules --question
 # This is free software: you are free to change and redistribute it.
 # There is NO WARRANTY, to the extent permitted by law.
 
-# Make data base, printed on Wed Jul 13 16:14:48 2022
+# Make data base, printed on Thu Jul 14 11:17:23 2022
 
 # Variables
 
@@ -49,7 +49,7 @@ VTE_VERSION = 6003
 # environment
 VSCODE_NLS_CONFIG = {"locale":"en-gb","availableLanguages":{},"_languagePackSupport":true}
 # environment
-JOURNAL_STREAM = 8:50046
+JOURNAL_STREAM = 8:51633
 # environment
 XDG_CONFIG_DIRS = /etc/xdg/xdg-ubuntu:/etc/xdg
 # makefile (from 'Makefile', line 1)
@@ -65,13 +65,15 @@ XDG_DATA_DIRS = /usr/share/ubuntu:/usr/local/share/:/usr/share/:/var/lib/snapd/d
 # environment
 VSCODE_AMD_ENTRYPOINT = vs/workbench/api/node/extensionHostProcess
 # environment
-DBUS_SESSION_BUS_ADDRESS = unix:path=/run/user/1001/bus,guid=21e1942ec24fc83c3f25dbce62ce4f34
+DBUS_SESSION_BUS_ADDRESS = unix:path=/run/user/1001/bus,guid=ba0516d5e7f869dcce3d243e62cf87c6
 # environment
 VSCODE_VERBOSE_LOGGING = true
 # environment
 _ = /usr/bin/code
 # environment
-MANAGERPID = 2076
+INFOPATH = /home/linuxbrew/.linuxbrew/share/info:
+# environment
+MANAGERPID = 2079
 # environment
 LESSOPEN = | /usr/bin/lesspipe %s
 # environment
@@ -81,11 +83,11 @@ GOPROXY = https://proxy.golang.org,direct
 # default
 MAKE_HOST := x86_64-pc-linux-gnu
 # environment
-PATH = /home/avinil/.local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin:/usr/local/go/bin
+PATH = /home/linuxbrew/.linuxbrew/bin:/home/linuxbrew/.linuxbrew/sbin:/home/avinil/.local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin:/usr/local/go/bin
 # environment
 GPG_AGENT_INFO = /run/user/1001/gnupg/S.gpg-agent:0:1
 # environment
-SESSION_MANAGER = local/avinil-Latitude-3420:@/tmp/.ICE-unix/2292,unix/avinil-Latitude-3420:/tmp/.ICE-unix/2292
+SESSION_MANAGER = local/avinil-Latitude-3420:@/tmp/.ICE-unix/2311,unix/avinil-Latitude-3420:/tmp/.ICE-unix/2311
 # environment
 XDG_RUNTIME_DIR = /run/user/1001
 # environment
@@ -97,7 +99,7 @@ VSCODE_LOG_STACK = false
 # environment
 ELECTRON_RUN_AS_NODE = 1
 # environment
-INVOCATION_ID = 89339e8ccdbf4093a35995c606943e81
+INVOCATION_ID = 996e1be8d99849abb6ba590fb070d898
 # default
 .FEATURES := target-specific order-only second-expansion else-if shortest-stem undefine oneshell archives jobserver output-sync check-symlink load
 # environment
@@ -117,17 +119,19 @@ PWD = /home/avinil/GoProjects/myProjects/POC1
 # default
 .LOADED := 
 # environment
-SSH_AGENT_PID = 2254
+SSH_AGENT_PID = 2273
 # environment
 ORIGINAL_XDG_CURRENT_DESKTOP = ubuntu:GNOME
 # environment
 GTK_MODULES = gail:atk-bridge
 # environment
+MANPATH = /home/linuxbrew/.linuxbrew/share/man:
+# environment
 GOMODCACHE = /home/avinil/go/pkg/mod
 # environment
 HOME = /home/avinil
 # environment
-LESSCLOSE = /usr/bin/lesspipe %s %s
+HOMEBREW_CELLAR = /home/linuxbrew/.linuxbrew/Cellar
 # environment
 VSCODE_CLI = 1
 # environment
@@ -138,6 +142,8 @@ LOGNAME = avinil
 APPLICATION_INSIGHTS_NO_DIAGNOSTIC_CHANNEL = 1
 # environment
 ELECTRON_NO_ATTACH_CONSOLE = 1
+# environment
+LESSCLOSE = /usr/bin/lesspipe %s %s
 # environment
 VSCODE_HANDLES_UNCAUGHT_ERRORS = true
 # environment
@@ -159,7 +165,7 @@ SHLVL = 1
 # environment
 GNOME_SHELL_SESSION_MODE = ubuntu
 # environment
-VSCODE_IPC_HOOK_EXTHOST = /run/user/1001/vscode-ipc-f5bbcdc8-a469-4f66-8950-a5a805ff8959.sock
+VSCODE_IPC_HOOK_EXTHOST = /run/user/1001/vscode-ipc-dfa99c63-cc0a-44b1-9343-527294f2e0d3.sock
 # default
 MAKE_VERSION := 4.2.1
 # environment
@@ -188,6 +194,8 @@ MAKEFLAGS = pqrR
 MFLAGS = -pqrR
 # automatic
 *D = $(patsubst %/,%,$(dir $*))
+# environment
+HOMEBREW_PREFIX = /home/linuxbrew/.linuxbrew
 # automatic
 +D = $(patsubst %/,%,$(dir $+))
 # environment
@@ -195,7 +203,7 @@ GDK_BACKEND = x11
 # automatic
 +F = $(notdir $+)
 # environment
-NO_AT_BRIDGE = 1
+HOMEBREW_REPOSITORY = /home/linuxbrew/.linuxbrew/Homebrew
 # environment
 QT_ACCESSIBILITY = 1
 # default
@@ -211,7 +219,7 @@ DBUS_STARTER_BUS_TYPE = session
 # makefile (from 'Makefile', line 4)
 ALL_PACKAGES = $(shell go list ./... | grep -v "vendor")
 # environment
-GNOME_TERMINAL_SCREEN = /org/gnome/Terminal/screen/53c7febf_339e_4c33_9274_25116654fbf1
+GNOME_TERMINAL_SCREEN = /org/gnome/Terminal/screen/51a18a99_f766_41b7_b59c_cd95afe8d9a3
 # automatic
 ^F = $(notdir $^)
 # makefile (from 'Makefile', line 2)
@@ -235,11 +243,11 @@ LANG = C
 # environment
 TERM = xterm-256color
 # environment
-VSCODE_PID = 3545
+VSCODE_PID = 13382
 # environment
-DBUS_STARTER_ADDRESS = unix:path=/run/user/1001/bus,guid=21e1942ec24fc83c3f25dbce62ce4f34
+DBUS_STARTER_ADDRESS = unix:path=/run/user/1001/bus,guid=ba0516d5e7f869dcce3d243e62cf87c6
 # variable set hash-table stats:
-# Load=114/1024=11%, Rehash=0, Collisions=15/139=11%
+# Load=118/1024=12%, Rehash=0, Collisions=17/143=12%
 
 # Pattern-specific Variable Values
 
@@ -247,9 +255,9 @@ DBUS_STARTER_ADDRESS = unix:path=/run/user/1001/bus,guid=21e1942ec24fc83c3f25dbc
 
 # Directories
 
-# . (device 66307, inode 20447783): 24 files, no impossibilities.
+# . (device 66307, inode 20447783): 25 files, no impossibilities.
 
-# 24 files, no impossibilities in 1 directories.
+# 25 files, no impossibilities in 1 directories.
 
 # Implicit Rules
 
@@ -277,17 +285,13 @@ db.create:
 #  Modification time never checked.
 #  File has not been updated.
 #  recipe to execute (from 'Makefile', line 39):
+	createdb -h $(DB_HOST) -U $(DB_USER) -O $(DB_USER) $(DB_NAME)
+
  
 make: *** No rule to make target 'all'.  Stop.
 
-	createdb -h $(DB_HOST) -U $(DB_USER) -O $(DB_USER) $(DB_NAME)
- 
-
- 
 build-deps:
- 
 #  Implicit rule search has not been done.
- 
 #  Modification time never checked.
 #  File has not been updated.
 #  recipe to execute (from 'Makefile', line 12):
@@ -407,12 +411,12 @@ db.migrate: db.create_extension
 
 # No general ('VPATH' variable) search path.
 
-# strcache buffers: 1 (0) / strings = 45 / storage = 384 B / avg = 8 B
-# current buf: size = 8162 B / used = 384 B / count = 45 / avg = 8 B
+# strcache buffers: 1 (0) / strings = 46 / storage = 389 B / avg = 8 B
+# current buf: size = 8162 B / used = 389 B / count = 46 / avg = 8 B
 
-# strcache performance: lookups = 77 / hit rate = 41%
+# strcache performance: lookups = 78 / hit rate = 41%
 # hash-table stats:
-# Load=45/8192=1%, Rehash=0, Collisions=1/77=1%
-# Finished Make data base on Wed Jul 13 16:14:48 2022
+# Load=46/8192=1%, Rehash=0, Collisions=1/78=1%
+# Finished Make data base on Thu Jul 14 11:17:23 2022
 
  
