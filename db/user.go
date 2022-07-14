@@ -96,15 +96,6 @@ func (s *store) ListUsers(ctx context.Context) (users []User, err error) {
 }
 
 func (s *store) CreateUser(ctx context.Context, user User) (err error) {
-	// mp := map[string]interface{}{
-	// 	"id":         user.ID,
-	// 	"name":       user.Name,
-	// 	"email":      user.Email,
-	// 	"password":   user.Password,
-	// 	"role_type":  user.RoleType,
-	// 	"created_at": user.CreatedAt,
-	// 	"updated_at": user.UpdatedAt,
-	// }
 	_, err = s.db.Query(`INSERT INTO users (id,name,email,password,role_type,created_at,updated_at) VALUES ($1,$2,$3,$4,$5,$6,$7)`, user.ID, user.Name, user.Email, user.Password, user.RoleType, user.CreatedAt, user.UpdatedAt)
 	if err != nil {
 		return err

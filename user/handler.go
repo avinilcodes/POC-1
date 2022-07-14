@@ -2,7 +2,6 @@ package user
 
 import (
 	"encoding/json"
-	"fmt"
 	"net/http"
 	"taskmanager/api"
 	"taskmanager/app"
@@ -115,7 +114,6 @@ func AddUserHandler(service Service) http.HandlerFunc {
 		user.RoleType = role_type
 		user.CreatedAt = now
 		user.UpdatedAt = now
-		fmt.Println(user)
 		err := service.addUser(req.Context(), user)
 		if err != nil {
 			app.GetLogger().Warn("error creating user", err.Error())
