@@ -1,11 +1,11 @@
 package user
 
 import (
-	"bankapp/api"
-	"bankapp/app"
-	"bankapp/db"
 	"encoding/json"
 	"net/http"
+	"taskmanager/api"
+	"taskmanager/app"
+	"taskmanager/db"
 
 	"github.com/gorilla/mux"
 )

@@ -1,14 +1,14 @@
 package middleware
 
 import (
-	"bankapp/api"
-	"bankapp/app"
-	"bankapp/config"
-	"bankapp/login"
 	"context"
 	"errors"
 	"net/http"
 	"strings"
+	"taskmanager/api"
+	"taskmanager/app"
+	"taskmanager/config"
+	"taskmanager/login"
 
 	"github.com/golang-jwt/jwt"
 )

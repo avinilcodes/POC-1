@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"strconv"
 
-	"bankapp/config"
+	"taskmanager/config"
 
 	"github.com/urfave/negroni"
 )

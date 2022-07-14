@@ -3,10 +3,10 @@ package main
 import (
 	"os"
 
-	"bankapp/app"
-	"bankapp/config"
-	"bankapp/db"
-	"bankapp/server"
+	"taskmanager/app"
+	"taskmanager/config"
+	"taskmanager/db"
+	"taskmanager/server"
 
 	"github.com/urfave/cli"
 )

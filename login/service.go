@@ -1,10 +1,10 @@
 package login
 
 import (
-	"bankapp/config"
-	"bankapp/db"
 	"context"
 	"errors"
+	"taskmanager/config"
+	"taskmanager/db"
 	"time"
 
 	"github.com/golang-jwt/jwt/v4"

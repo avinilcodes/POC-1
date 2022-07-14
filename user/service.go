@@ -1,9 +1,9 @@
 package user
 
 import (
-	"bankapp/app"
-	"bankapp/db"
 	"context"
+	"taskmanager/app"
+	"taskmanager/db"
 
 	"go.uber.org/zap"
 )

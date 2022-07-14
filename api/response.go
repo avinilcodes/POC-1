@@ -4,7 +4,7 @@ import (
 	"encoding/json"
 	"net/http"
 
-	"bankapp/app"
+	"taskmanager/app"
 )
 
 type Response struct {

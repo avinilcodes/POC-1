@@ -1,9 +1,9 @@
 package db
 
 import (
-	"bankapp/utils"
 	"context"
 	"database/sql"
+	"taskmanager/utils"
 	"time"
 
 	"github.com/sethvargo/go-password/password"

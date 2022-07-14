@@ -3,7 +3,7 @@ package app
 import (
 	"time"
 
-	"bankapp/config"
+	"taskmanager/config"
 
 	"github.com/jmoiron/sqlx"
 	"go.uber.org/zap"

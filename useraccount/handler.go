@@ -1,11 +1,11 @@
 package useraccount
 
 import (
-	"bankapp/api"
-	"bankapp/app"
-	"bankapp/utils"
 	"encoding/json"
 	"net/http"
+	"taskmanager/api"
+	"taskmanager/app"
+	"taskmanager/utils"
 )
 
 func Create(service Service) http.HandlerFunc {

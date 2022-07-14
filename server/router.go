@@ -1,9 +1,9 @@
 package server
 
 import (
-	"bankapp/login"
-	"bankapp/user"
 	"net/http"
+	"taskmanager/login"
+	"taskmanager/user"
 
 	"github.com/gorilla/mux"
 )

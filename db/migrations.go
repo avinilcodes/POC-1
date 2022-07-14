@@ -8,7 +8,7 @@ import (
 	"strconv"
 	"time"
 
-	"bankapp/config"
+	"taskmanager/config"
 
 	_ "github.com/lib/pq"
 	"github.com/mattes/migrate"

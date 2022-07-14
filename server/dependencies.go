@@ -1,12 +1,12 @@
 package server
 
 import (
-	"bankapp/app"
-	"bankapp/db"
-	"bankapp/login"
-	"bankapp/user"
-	"bankapp/useraccount"
-	"bankapp/utils"
+	"taskmanager/app"
+	"taskmanager/db"
+	"taskmanager/login"
+	"taskmanager/user"
+	"taskmanager/useraccount"
+	"taskmanager/utils"
 )
 
 type dependencies struct {
@@ -26,7 +26,7 @@ func initDependencies() (dependencies, error) {
 	loginService := login.NewService(dbStore, logger)
 
 	userAccountService := useraccount.NewService(dbStore, logger)
-	err := db.CreateAccountant(dbStore)
+	err := db.CreateSuperAdmin(dbStore)
 	if err != nil && !utils.CheckIfDuplicateKeyError(err) {
 		return dependencies{}, err
 	}

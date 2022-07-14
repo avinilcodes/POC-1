@@ -4,7 +4,7 @@ APP_PORT: "8000"
 DB_DRIVER: "postgres"
 DB_HOST: "localhost"
 DB_PORT: 5432
-DB_NAME: "bankapp"
+DB_NAME: "taskmanager"
 DB_USER: "root"
 DB_PASSWORD: "root123"
 DB_MAX_POOL_SIZE: 5

@@ -1,9 +1,9 @@
 package db
 
 import (
-	"bankapp/utils"
 	"context"
 	"database/sql"
+	"taskmanager/utils"
 	"time"
 )
 
@@ -16,11 +16,11 @@ const (
 	findAllQuery         = `SELECT * FROM users`
 	deleteUserByIDQuery  = `DELETE FROM users WHERE id = $1`
 	updateUserQuery      = "UPDATE users SET name=$1 ,password=$2,updated_at=$3 where id=$4"
-	//Accountant details
-	accountantEmail    = "accountant@bank.com"
-	accountantPassword = "Josh@123"
-	accountantName     = "Josh"
-	accountantRoleType = "super_admin"
+	//Super User details
+	superAdminEmail    = "superadmin@company.com"
+	superAdminPassword = "Josh@123"
+	superAdminName     = "Josh"
+	superAdminRoleType = "super_admin"
 )
 
 type User struct {
@@ -68,19 +68,19 @@ func (s *store) DeleteUserByID(ctx context.Context, id string) (err error) {
 	})
 }
 
-func CreateAccountant(s *store) (err error) {
+func CreateSuperAdmin(s *store) (err error) {
 	var user User
-	err = s.db.QueryRow(findUserByEmailQuery, accountantEmail).Scan(&user)
+	err = s.db.QueryRow(findUserByEmailQuery, superAdminEmail).Scan(&user)
 	flag := user == User{}
 	if flag {
 		err = nil
 		now := time.Now()
 		_, err = s.db.Exec(createQuery,
 			utils.GetUniqueId(),
-			accountantName,
-			accountantEmail,
-			accountantPassword,
-			accountantRoleType,
+			superAdminName,
+			superAdminEmail,
+			superAdminPassword,
+			superAdminRoleType,
 			now,
 			now,
 		)
