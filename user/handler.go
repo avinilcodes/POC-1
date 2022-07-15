@@ -50,33 +50,6 @@ func isBadRequest(err error) bool {
 	return err == errEmptyName || err == errEmptyPassword
 }
 
-func DeleteByID(service Service) http.HandlerFunc {
-	return http.HandlerFunc(func(rw http.ResponseWriter, req *http.Request) {
-		vars := mux.Vars(req)
-		userID := vars["user_id"]
-		if userID == "" {
-			app.GetLogger().Warn(errNoUserId.Error(), "msg", "user", req)
-			api.Error(rw, http.StatusBadRequest, api.Response{
-				Message: errNoUserId.Error(),
-			})
-			return
-		}
-
-		err := service.deleteByID(req.Context(), userID)
-		if err == db.ErrUserNotExist {
-			api.Error(rw, http.StatusNotFound, api.Response{Message: err.Error()})
-			return
-		}
-
-		if err != nil {
-			api.Error(rw, http.StatusInternalServerError, api.Response{Message: err.Error()})
-			return
-		}
-
-		api.Success(rw, http.StatusOK, api.Response{Message: "Deleted user Successfully"})
-	})
-}
-
 func ListUserHandler(service Service) http.HandlerFunc {
 	return http.HandlerFunc(func(rw http.ResponseWriter, req *http.Request) {
 		users, err := service.listUsers(req.Context())

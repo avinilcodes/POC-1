@@ -55,20 +55,6 @@ func (s *store) FindUserByEmail(ctx context.Context, email string) (user User, e
 	return
 }
 
-func (s *store) DeleteUserByID(ctx context.Context, id string) (err error) {
-	return Transact(ctx, s.db, &sql.TxOptions{}, func(ctx context.Context) error {
-		res, err := s.db.Exec(deleteUserByIDQuery, id)
-		cnt, err := res.RowsAffected()
-		if cnt == 0 {
-			return ErrUserNotExist
-		}
-		if err != nil {
-			return err
-		}
-		return err
-	})
-}
-
 func CreateSuperAdmin(s *store) (err error) {
 	var user User
 	err = s.db.QueryRow(findUserByEmailQuery, superAdminEmail).Scan(&user)

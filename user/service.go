@@ -10,7 +10,6 @@ import (
 
 type Service interface {
 	update(ctx context.Context, req updateRequest, userId string) (err error)
-	deleteByID(ctx context.Context, email string) (err error)
 	listUsers(ctx context.Context) (users []db.User, err error)
 	addUser(ctx context.Context, user db.User) (err error)
 }
@@ -34,20 +33,6 @@ func (cs *userService) update(ctx context.Context, c updateRequest, userID strin
 	})
 	if err != nil {
 		cs.logger.Error("Error updating User", "err", err.Error(), "users", c)
-		return
-	}
-
-	return
-}
-
-func (cs *userService) deleteByID(ctx context.Context, email string) (err error) {
-	err = cs.store.DeleteUserByID(ctx, email)
-	if err == db.ErrUserNotExist {
-		cs.logger.Error("User Not present", "err", err.Error(), "user_email", email)
-		return errNoUserId
-	}
-	if err != nil {
-		cs.logger.Error("Error deleting user", "err", err.Error(), "user_email", email)
 		return
 	}
 
