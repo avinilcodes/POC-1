@@ -25,11 +25,10 @@ func initRouter(dep dependencies) (router *mux.Router) {
 	//Login
 	router.HandleFunc("/login", login.Login(dep.UserLoginService)).Methods(http.MethodPost)
 
-	//ListUsers
-	router.HandleFunc("/users", user.ListUserHandler(dep.UserServices)).Methods(http.MethodGet)
-
 	//Add user
 	router.HandleFunc("/user", user.AddUserHandler(dep.UserServices)).Methods(http.MethodPost)
+	//ListUsers
+	router.HandleFunc("/users", user.ListUserHandler(dep.UserServices)).Methods(http.MethodGet)
 	//Create a task
 	router.HandleFunc("/task", task.AddTaskHandler(dep.TaskService)).Methods(http.MethodPost)
 	//List Tasks
