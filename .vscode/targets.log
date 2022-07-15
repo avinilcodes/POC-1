@@ -6,7 +6,7 @@ make all --print-data-base --no-builtin-variables --no-builtin-rules --question
 # This is free software: you are free to change and redistribute it.
 # There is NO WARRANTY, to the extent permitted by law.
 
-# Make data base, printed on Thu Jul 14 22:04:49 2022
+# Make data base, printed on Fri Jul 15 07:47:22 2022
 
 # Variables
 
@@ -159,7 +159,7 @@ SHLVL = 1
 # environment
 GNOME_SHELL_SESSION_MODE = ubuntu
 # environment
-VSCODE_IPC_HOOK_EXTHOST = /run/user/1001/vscode-ipc-9d0033b3-feac-40d2-b6d3-8b9ea131331c.sock
+VSCODE_IPC_HOOK_EXTHOST = /run/user/1001/vscode-ipc-4998771e-3cb3-4cf6-96aa-6038ba9fb474.sock
 # default
 MAKE_VERSION := 4.2.1
 # environment
@@ -173,7 +173,7 @@ XDG_CURRENT_DESKTOP = Unity
 # default
 MAKE_COMMAND := make
 # environment
-OLDPWD = /home/avinil/GoProjects/POC2
+OLDPWD = /home/avinil/GoProjects/myProjects/POC1/server
 # default
 .VARIABLES := 
 # automatic
@@ -247,9 +247,9 @@ DBUS_STARTER_ADDRESS = unix:path=/run/user/1001/bus,guid=8dd3ef2890d4f4a66cac47a
 
 # Directories
 
-# . (device 66307, inode 20447783): 24 files, no impossibilities.
+# . (device 66307, inode 20447783): 25 files, no impossibilities.
 
-# 24 files, no impossibilities in 1 directories.
+# 25 files, no impossibilities in 1 directories.
 
 # Implicit Rules
 
@@ -292,9 +292,6 @@ db.reset: db.drop db.create db.migrate
 #  File has not been updated.
 
 db.create_extension:
- 
-make: *** No rule to make target 'all'.  Stop.
-
 #  Implicit rule search has not been done.
 #  Modification time never checked.
 #  File has not been updated.
@@ -309,6 +306,9 @@ test-coverage:
 	@echo "mode: count" > coverage-all.out
 	$(foreach pkg, $(ALL_PACKAGES),\
 	ENVIRONMENT=test go test -coverprofile=coverage.out -covermode=count $(pkg);\
+ 
+make: *** No rule to make target 'all'.  Stop.
+
 	tail -n +2 coverage.out >> coverage-all.out;)
 	go tool cover -html=coverage-all.out -o out/coverage.html
 
@@ -403,12 +403,12 @@ db.migrate: db.create_extension
 
 # No general ('VPATH' variable) search path.
 
-# strcache buffers: 1 (0) / strings = 45 / storage = 381 B / avg = 8 B
-# current buf: size = 8162 B / used = 381 B / count = 45 / avg = 8 B
+# strcache buffers: 1 (0) / strings = 46 / storage = 386 B / avg = 8 B
+# current buf: size = 8162 B / used = 386 B / count = 46 / avg = 8 B
 
-# strcache performance: lookups = 77 / hit rate = 41%
+# strcache performance: lookups = 78 / hit rate = 41%
 # hash-table stats:
-# Load=45/8192=1%, Rehash=0, Collisions=1/77=1%
-# Finished Make data base on Thu Jul 14 22:04:49 2022
+# Load=46/8192=1%, Rehash=0, Collisions=1/78=1%
+# Finished Make data base on Fri Jul 15 07:47:22 2022
 
  

@@ -3,6 +3,7 @@ package server
 import (
 	"net/http"
 	"taskmanager/login"
+	"taskmanager/task"
 	"taskmanager/user"
 
 	"github.com/gorilla/mux"
@@ -29,6 +30,7 @@ func initRouter(dep dependencies) (router *mux.Router) {
 
 	//Add user
 	router.HandleFunc("/user", user.AddUserHandler(dep.UserServices)).Methods(http.MethodPost)
-
+	//Create a task
+	router.HandleFunc("/task", task.AddTaskHandler(dep.TaskService)).Methods(http.MethodPost)
 	return
 }

@@ -14,8 +14,7 @@ CREATE TABLE "users" (
   "updated_at" timestamp
 );
 
-CREATE TYPE task_status AS ENUM ('in_progress', 'code_review', 'mr_approved');
-
+CREATE TYPE task_status AS ENUM ('not_scoped','scoped','in_progress', 'code_review', 'mr_approved');
 CREATE TABLE "tasks" (
   "id" varchar(64) PRIMARY KEY,
   "descreption" varchar(200) NOT NULL DEFAULT '',

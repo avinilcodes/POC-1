@@ -23,6 +23,7 @@ type Storer interface {
 	DeleteUserByID(ctx context.Context, id string) (err error)
 	ListUsers(ctx context.Context) (users []User, err error)
 	CreateUser(ctx context.Context, user User) (err error)
+	CreateTask(ctx context.Context, task Task) (err error)
 }
 
 type store struct {
