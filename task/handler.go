@@ -2,6 +2,7 @@ package task
 
 import (
 	"net/http"
+	"taskmanager/api"
 	"taskmanager/app"
 	"taskmanager/db"
 	"taskmanager/utils"
@@ -32,6 +33,7 @@ func AddTaskHandler(service Service) http.HandlerFunc {
 			return
 		}
 		rw.Header().Add("Content-Type", "application/json")
+		api.Success(rw, http.StatusOK, api.Response{Message: "Task added Successfully"})
 	})
 }
 
@@ -50,5 +52,6 @@ func AssignTaskHandler(service Service) http.HandlerFunc {
 			return
 		}
 		rw.Header().Add("Content-Type", "application/json")
+		api.Success(rw, http.StatusOK, api.Response{Message: "Task assignment Successful"})
 	})
 }
