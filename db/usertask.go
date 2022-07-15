@@ -28,7 +28,7 @@ func (s *store) AssignTask(ctx context.Context, description string, userEmail st
 	taskID := task.ID
 	if task.TaskStatusCode == "not_scoped" {
 		task.TaskStatusCode = "scoped"
-		_, err = s.db.Query(`update tasks set task_status_code=$1 where id =$2`, task.TaskStatusCode, task.ID)
+		_, err = s.db.Query(updateTaskStatus, task.TaskStatusCode, task.ID)
 		if err != nil {
 			return err
 		}

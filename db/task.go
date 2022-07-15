@@ -9,6 +9,7 @@ const (
 	findTaskIDByDescription = "SELECT id,descreption,task_status_code,started_at,ended_at FROM TASKS WHERE descreption=$1"
 	insertTask              = `INSERT INTO tasks (id,descreption,task_status_code,started_at,ended_at) VALUES ($1,$2,$3,$4,$5)`
 	findAllTasks            = "select * from tasks"
+	updateTaskStatus        = `update tasks set task_status_code=$1 where id =$2`
 )
 
 type Task struct {
@@ -42,14 +43,19 @@ func (s *store) UpdateTaskStatus(ctx context.Context, description string, status
 		return s.db.GetContext(ctx, &task, findTaskIDByDescription, description)
 	})
 	task.TaskStatusCode = status
-	if status == "mr_approved" {
-		task.EndedAt = time.Now()
+	flag := status != "in_progress" && status != "mr_approved" && status != "code_review"
+	if !flag {
+		if status == "mr_approved" {
+			task.EndedAt = time.Now()
+		}
+		_, err = s.db.Query(updateTaskStatus, task.TaskStatusCode, task.ID)
+		if err != nil {
+			return err
+		}
+		return
 	}
-	_, err = s.db.Query(`INSERT INTO tasks (id,descreption,task_status_code,started_at,ended_at) VALUES ($1,$2,$3,$4,$5)`, task.ID, task.Description, task.TaskStatusCode, task.StartedAt, task.EndedAt)
-	if err != nil {
-		return err
-	}
-	return
+	return ErrTaskCannotBeUpdated
+
 }
 
 func (s *store) ListTasks(ctx context.Context) (tasks []Task, err error) {

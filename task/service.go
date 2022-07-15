@@ -12,6 +12,7 @@ type Service interface {
 	addTask(ctx context.Context, task db.Task) (err error)
 	assignTask(ctx context.Context, assignTaskRequest AssignTaskRequest) (err error)
 	listTasks(ctx context.Context) (tasks []db.Task, err error)
+	updateTaskStatus(ctx context.Context, description string, status string) (err error)
 }
 
 type taskService struct {
@@ -38,6 +39,15 @@ func (ts *taskService) assignTask(ctx context.Context, assignTaskRequest AssignT
 }
 func (ts *taskService) listTasks(ctx context.Context) (tasks []db.Task, err error) {
 	tasks, err = ts.store.ListTasks(ctx)
+	if err != nil {
+		app.GetLogger().Warn("Error while adding task", err.Error())
+		return
+	}
+	return
+}
+
+func (ts *taskService) updateTaskStatus(ctx context.Context, description string, status string) (err error) {
+	err = ts.store.UpdateTaskStatus(ctx, description, status)
 	if err != nil {
 		app.GetLogger().Warn("Error while adding task", err.Error())
 		return

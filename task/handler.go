@@ -82,3 +82,25 @@ func ListTaskHandler(service Service) http.HandlerFunc {
 		rw.Write(respBytes)
 	})
 }
+
+func UpdateTaskStatusHandler(service Service) http.HandlerFunc {
+	return http.HandlerFunc(func(rw http.ResponseWriter, req *http.Request) {
+		req.ParseForm()
+		status := req.Form.Get("status")
+		description := req.Form.Get("description")
+		err := service.updateTaskStatus(req.Context(), description, status)
+		if err != nil {
+			if err.Error() == "Task status invalid" {
+				rw.WriteHeader(http.StatusBadRequest)
+				api.Error(rw, http.StatusBadRequest, api.Response{Message: "Invalid status"})
+				return
+			} else {
+				app.GetLogger().Warn("Failed because", err)
+				rw.WriteHeader(http.StatusInternalServerError)
+				return
+			}
+		}
+		rw.Header().Add("Content-Type", "application/json")
+		api.Success(rw, http.StatusOK, api.Response{Message: "Task status update Successful"})
+	})
+}
