@@ -2,7 +2,6 @@ package db
 
 import (
 	"context"
-	"fmt"
 )
 
 const (
@@ -26,8 +25,6 @@ func (s *store) AssignTask(ctx context.Context, description string, userEmail st
 	err = WithDefaultTimeout(ctx, func(ctx context.Context) error {
 		return s.db.GetContext(ctx, &task, findTaskIDByDescription, description)
 	})
-	fmt.Println(user)
-	fmt.Println(task)
 	taskID := task.ID
 	if task.TaskStatusCode == "not_scoped" {
 		task.TaskStatusCode = "scoped"

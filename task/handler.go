@@ -2,6 +2,7 @@ package task
 
 import (
 	"net/http"
+	"taskmanager/api"
 	"taskmanager/app"
 	"taskmanager/db"
 	"taskmanager/utils"
@@ -27,11 +28,18 @@ func AddTaskHandler(service Service) http.HandlerFunc {
 		task.EndedAt = time.Time{}
 		err := service.addTask(req.Context(), task)
 		if err != nil {
-			app.GetLogger().Warn("error creating task", err.Error())
-			rw.WriteHeader(http.StatusInternalServerError)
-			return
+			if err.Error() == "Task already exist!" {
+				rw.WriteHeader(http.StatusBadRequest)
+				api.Error(rw, http.StatusBadRequest, api.Response{Message: "can not duplicate Task"})
+				return
+			} else {
+				app.GetLogger().Warn("Failed because", err)
+				rw.WriteHeader(http.StatusInternalServerError)
+				return
+			}
 		}
 		rw.Header().Add("Content-Type", "application/json")
+		api.Success(rw, http.StatusOK, api.Response{Message: "Task added Successfully"})
 	})
 }
 
@@ -50,5 +58,6 @@ func AssignTaskHandler(service Service) http.HandlerFunc {
 			return
 		}
 		rw.Header().Add("Content-Type", "application/json")
+		api.Success(rw, http.StatusOK, api.Response{Message: "Task assignment Successful"})
 	})
 }

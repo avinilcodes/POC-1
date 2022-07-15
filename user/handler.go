@@ -121,5 +121,6 @@ func AddUserHandler(service Service) http.HandlerFunc {
 			return
 		}
 		rw.Header().Add("Content-Type", "application/json")
+		api.Success(rw, http.StatusOK, api.Response{Message: "User added Successfully"})
 	})
 }

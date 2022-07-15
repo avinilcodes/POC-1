@@ -18,11 +18,18 @@ type Task struct {
 }
 
 func (s *store) CreateTask(ctx context.Context, task Task) (err error) {
-	_, err = s.db.Query(`INSERT INTO tasks (id,descreption,task_status_code,started_at,ended_at) VALUES ($1,$2,$3,$4,$5)`, task.ID, task.Description, task.TaskStatusCode, task.StartedAt, task.EndedAt)
+	res, err := s.db.Exec(findTaskIDByDescription, task.Description)
 	if err != nil {
-		return err
+		return
 	}
-	return
+	cnt, _ := res.RowsAffected()
+	if cnt == 0 {
+		_, err = s.db.Query(`INSERT INTO tasks (id,descreption,task_status_code,started_at,ended_at) VALUES ($1,$2,$3,$4,$5)`, task.ID, task.Description, task.TaskStatusCode, task.StartedAt, task.EndedAt)
+		if err != nil {
+			return err
+		}
+	}
+	return ErrTaskAlreadyExist
 }
 
 func (s *store) UpdateTaskStatus(ctx context.Context, description string, status string) (err error) {

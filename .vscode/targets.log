@@ -1,4 +1,6 @@
 make all --print-data-base --no-builtin-variables --no-builtin-rules --question
+make: *** No rule to make target 'all'.  Stop.
+
 # GNU Make 4.2.1
 # Built for x86_64-pc-linux-gnu
 # Copyright (C) 1988-2016 Free Software Foundation, Inc.
@@ -6,7 +8,7 @@ make all --print-data-base --no-builtin-variables --no-builtin-rules --question
 # This is free software: you are free to change and redistribute it.
 # There is NO WARRANTY, to the extent permitted by law.
 
-# Make data base, printed on Fri Jul 15 07:47:22 2022
+# Make data base, printed on Fri Jul 15 14:53:57 2022
 
 # Variables
 
@@ -159,7 +161,7 @@ SHLVL = 1
 # environment
 GNOME_SHELL_SESSION_MODE = ubuntu
 # environment
-VSCODE_IPC_HOOK_EXTHOST = /run/user/1001/vscode-ipc-4998771e-3cb3-4cf6-96aa-6038ba9fb474.sock
+VSCODE_IPC_HOOK_EXTHOST = /run/user/1001/vscode-ipc-898521a0-cba2-432b-a826-7ce05f0082b8.sock
 # default
 MAKE_VERSION := 4.2.1
 # environment
@@ -295,6 +297,7 @@ db.create_extension:
 #  Implicit rule search has not been done.
 #  Modification time never checked.
 #  File has not been updated.
+ 
 #  recipe to execute (from 'Makefile', line 45):
 	psql -h $(DB_HOST) -d $(DB_NAME) -U $(DB_USER) -c 'CREATE EXTENSION IF NOT EXISTS "uuid-ossp"';
 
@@ -306,9 +309,6 @@ test-coverage:
 	@echo "mode: count" > coverage-all.out
 	$(foreach pkg, $(ALL_PACKAGES),\
 	ENVIRONMENT=test go test -coverprofile=coverage.out -covermode=count $(pkg);\
- 
-make: *** No rule to make target 'all'.  Stop.
-
 	tail -n +2 coverage.out >> coverage-all.out;)
 	go tool cover -html=coverage-all.out -o out/coverage.html
 
@@ -409,6 +409,6 @@ db.migrate: db.create_extension
 # strcache performance: lookups = 78 / hit rate = 41%
 # hash-table stats:
 # Load=46/8192=1%, Rehash=0, Collisions=1/78=1%
-# Finished Make data base on Fri Jul 15 07:47:22 2022
+# Finished Make data base on Fri Jul 15 14:53:57 2022
 
  
