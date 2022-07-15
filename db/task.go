@@ -2,11 +2,13 @@ package db
 
 import (
 	"context"
+	"fmt"
 	"time"
 )
 
 const (
 	findTaskIDByDescription = "SELECT id,descreption,task_status_code,started_at,ended_at FROM TASKS WHERE descreption=$1"
+	insertTask              = `INSERT INTO tasks (id,descreption,task_status_code,started_at,ended_at) VALUES ($1,$2,$3,$4,$5)`
 )
 
 type Task struct {
@@ -22,14 +24,18 @@ func (s *store) CreateTask(ctx context.Context, task Task) (err error) {
 	if err != nil {
 		return
 	}
+	fmt.Println(res)
 	cnt, _ := res.RowsAffected()
+	fmt.Println(cnt)
 	if cnt == 0 {
-		_, err = s.db.Query(`INSERT INTO tasks (id,descreption,task_status_code,started_at,ended_at) VALUES ($1,$2,$3,$4,$5)`, task.ID, task.Description, task.TaskStatusCode, task.StartedAt, task.EndedAt)
+		_, err = s.db.Query(insertTask, task.ID, task.Description, task.TaskStatusCode, task.StartedAt, task.EndedAt)
 		if err != nil {
 			return err
 		}
+		return
 	}
 	return ErrTaskAlreadyExist
+
 }
 
 func (s *store) UpdateTaskStatus(ctx context.Context, description string, status string) (err error) {
