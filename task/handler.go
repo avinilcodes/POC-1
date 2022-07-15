@@ -1,6 +1,7 @@
 package task
 
 import (
+	"encoding/json"
 	"net/http"
 	"taskmanager/api"
 	"taskmanager/app"
@@ -59,5 +60,25 @@ func AssignTaskHandler(service Service) http.HandlerFunc {
 		}
 		rw.Header().Add("Content-Type", "application/json")
 		api.Success(rw, http.StatusOK, api.Response{Message: "Task assignment Successful"})
+	})
+}
+
+func ListTaskHandler(service Service) http.HandlerFunc {
+	return http.HandlerFunc(func(rw http.ResponseWriter, req *http.Request) {
+		tasks, err := service.listTasks(req.Context())
+		if err != nil {
+			app.GetLogger().Warn("error fetching tasks", err.Error())
+			rw.WriteHeader(http.StatusInternalServerError)
+			return
+		}
+		respBytes, err := json.Marshal(tasks)
+		if err != nil {
+			app.GetLogger().Warn("error while marshilling users")
+			rw.WriteHeader(http.StatusInternalServerError)
+			return
+		}
+
+		rw.Header().Add("Content-Type", "application/json")
+		rw.Write(respBytes)
 	})
 }

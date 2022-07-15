@@ -11,6 +11,7 @@ import (
 type Service interface {
 	addTask(ctx context.Context, task db.Task) (err error)
 	assignTask(ctx context.Context, assignTaskRequest AssignTaskRequest) (err error)
+	listTasks(ctx context.Context) (tasks []db.Task, err error)
 }
 
 type taskService struct {
@@ -18,8 +19,8 @@ type taskService struct {
 	logger *zap.SugaredLogger
 }
 
-func (cs *taskService) addTask(ctx context.Context, task db.Task) (err error) {
-	err = cs.store.CreateTask(ctx, task)
+func (ts *taskService) addTask(ctx context.Context, task db.Task) (err error) {
+	err = ts.store.CreateTask(ctx, task)
 	if err != nil {
 		app.GetLogger().Warn("Error while adding task", err.Error())
 		return
@@ -27,8 +28,16 @@ func (cs *taskService) addTask(ctx context.Context, task db.Task) (err error) {
 	return
 }
 
-func (cs *taskService) assignTask(ctx context.Context, assignTaskRequest AssignTaskRequest) (err error) {
-	err = cs.store.AssignTask(ctx, assignTaskRequest.Description, assignTaskRequest.UserEmail)
+func (ts *taskService) assignTask(ctx context.Context, assignTaskRequest AssignTaskRequest) (err error) {
+	err = ts.store.AssignTask(ctx, assignTaskRequest.Description, assignTaskRequest.UserEmail)
+	if err != nil {
+		app.GetLogger().Warn("Error while adding task", err.Error())
+		return
+	}
+	return
+}
+func (ts *taskService) listTasks(ctx context.Context) (tasks []db.Task, err error) {
+	tasks, err = ts.store.ListTasks(ctx)
 	if err != nil {
 		app.GetLogger().Warn("Error while adding task", err.Error())
 		return

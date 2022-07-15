@@ -25,6 +25,7 @@ type Storer interface {
 	CreateUser(ctx context.Context, user User) (err error)
 	CreateTask(ctx context.Context, task Task) (err error)
 	AssignTask(ctx context.Context, description string, userEmail string) (err error)
+	ListTasks(ctx context.Context) (tasks []Task, err error)
 }
 
 type store struct {
