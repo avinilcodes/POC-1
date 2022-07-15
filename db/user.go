@@ -12,10 +12,11 @@ const (
 		id,name,email,password,role_type,created_at,updated_at)
 		VALUES($1,$2,$3,$4,$5,$6,$7)
 	`
-	findUserByEmailQuery = `SELECT id, name, email, password, role_type FROM users WHERE email = $1`
+	findUserByEmailQuery = `SELECT id, name, email, password, role_type, created_at,updated_at FROM users WHERE email = $1`
 	findAllQuery         = `SELECT * FROM users`
 	deleteUserByIDQuery  = `DELETE FROM users WHERE id = $1`
 	updateUserQuery      = "UPDATE users SET name=$1 ,password=$2,updated_at=$3 where id=$4"
+	userInsert           = `INSERT INTO users (id,name,email,password,role_type,created_at,updated_at) VALUES ($1,$2,$3,$4,$5,$6,$7)`
 	//Super User details
 	superAdminEmail    = "superadmin@company.com"
 	superAdminPassword = "Josh@123"
@@ -96,7 +97,7 @@ func (s *store) ListUsers(ctx context.Context) (users []User, err error) {
 }
 
 func (s *store) CreateUser(ctx context.Context, user User) (err error) {
-	_, err = s.db.Query(`INSERT INTO users (id,name,email,password,role_type,created_at,updated_at) VALUES ($1,$2,$3,$4,$5,$6,$7)`, user.ID, user.Name, user.Email, user.Password, user.RoleType, user.CreatedAt, user.UpdatedAt)
+	_, err = s.db.Query(userInsert, user.ID, user.Name, user.Email, user.Password, user.RoleType, user.CreatedAt, user.UpdatedAt)
 	if err != nil {
 		return err
 	}

@@ -32,5 +32,7 @@ func initRouter(dep dependencies) (router *mux.Router) {
 	router.HandleFunc("/user", user.AddUserHandler(dep.UserServices)).Methods(http.MethodPost)
 	//Create a task
 	router.HandleFunc("/task", task.AddTaskHandler(dep.TaskService)).Methods(http.MethodPost)
+	//Assign Task
+	router.HandleFunc("/task/assign", task.AssignTaskHandler(dep.TaskService)).Methods(http.MethodPost)
 	return
 }

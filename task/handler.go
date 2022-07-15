@@ -8,6 +8,11 @@ import (
 	"time"
 )
 
+type AssignTaskRequest struct {
+	Description string
+	UserEmail   string
+}
+
 func AddTaskHandler(service Service) http.HandlerFunc {
 	return http.HandlerFunc(func(rw http.ResponseWriter, req *http.Request) {
 		req.ParseForm()
@@ -21,6 +26,24 @@ func AddTaskHandler(service Service) http.HandlerFunc {
 		task.StartedAt = now
 		task.EndedAt = time.Time{}
 		err := service.addTask(req.Context(), task)
+		if err != nil {
+			app.GetLogger().Warn("error creating task", err.Error())
+			rw.WriteHeader(http.StatusInternalServerError)
+			return
+		}
+		rw.Header().Add("Content-Type", "application/json")
+	})
+}
+
+func AssignTaskHandler(service Service) http.HandlerFunc {
+	return http.HandlerFunc(func(rw http.ResponseWriter, req *http.Request) {
+		req.ParseForm()
+		description := req.Form.Get("description")
+		userEmail := req.Form.Get("email")
+		var assignTaskRequest AssignTaskRequest
+		assignTaskRequest.Description = description
+		assignTaskRequest.UserEmail = userEmail
+		err := service.assignTask(req.Context(), assignTaskRequest)
 		if err != nil {
 			app.GetLogger().Warn("error creating task", err.Error())
 			rw.WriteHeader(http.StatusInternalServerError)
