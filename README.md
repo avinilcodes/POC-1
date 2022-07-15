@@ -1,2 +1,3 @@
 # taskmanager
-Case study: To design bank application
+Building a CLI based task manager to keep track of
+Task and their assignment as well as status  
