@@ -6,8 +6,8 @@ import (
 )
 
 const (
-	findTaskIDByDescription = "SELECT id,descreption,task_status_code,started_at,ended_at FROM TASKS WHERE descreption=$1"
-	insertTask              = `INSERT INTO tasks (id,descreption,task_status_code,started_at,ended_at) VALUES ($1,$2,$3,$4,$5)`
+	findTaskIDByDescription = "SELECT id,description,task_status_code,started_at,ended_at FROM TASKS WHERE description=$1"
+	insertTask              = `INSERT INTO tasks (id,description,task_status_code,started_at,ended_at) VALUES ($1,$2,$3,$4,$5)`
 	findAllTasks            = "select * from tasks"
 	updateTaskStatus        = `update tasks set task_status_code=$1 where id =$2`
 )
