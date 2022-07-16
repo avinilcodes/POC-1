@@ -2,6 +2,7 @@ package task
 
 import (
 	"encoding/json"
+	"fmt"
 	"net/http"
 	"taskmanager/api"
 	"taskmanager/app"
@@ -28,6 +29,7 @@ func AddTaskHandler(service Service) http.HandlerFunc {
 		task.StartedAt = now
 		task.EndedAt = time.Time{}
 		err := service.addTask(req.Context(), task)
+		fmt.Println(err.Error())
 		if err != nil {
 			if err.Error() == "Task already exist!" {
 				rw.WriteHeader(http.StatusBadRequest)
@@ -93,6 +95,10 @@ func UpdateTaskStatusHandler(service Service) http.HandlerFunc {
 			if err.Error() == "Task status invalid" {
 				rw.WriteHeader(http.StatusBadRequest)
 				api.Error(rw, http.StatusBadRequest, api.Response{Message: "Invalid status"})
+				return
+			} else if err.Error() == "Task cannot be updated previous state/states pending" {
+				rw.WriteHeader(http.StatusBadRequest)
+				api.Error(rw, http.StatusBadRequest, api.Response{Message: "Task Status cannot be updated as previous states are pending"})
 				return
 			} else {
 				app.GetLogger().Warn("Failed because", err)

@@ -45,6 +45,15 @@ func (s *store) UpdateTaskStatus(ctx context.Context, description string, status
 	if err != nil {
 		return err
 	}
+	if task.TaskStatusCode == "in_progress" || task.TaskStatusCode == "scoped" || task.TaskStatusCode == "not_scoped" && status == "mr_approved" {
+		return ErrTaskStatusError
+	}
+	if task.TaskStatusCode == "not_scoped" && status == "in_progress" {
+		return ErrTaskStatusError
+	}
+	if task.TaskStatusCode == "scoped" || task.TaskStatusCode == "not_scoped" && status == "code_review" {
+		return ErrTaskStatusError
+	}
 	task.TaskStatusCode = status
 	flag := status != "in_progress" && status != "mr_approved" && status != "code_review"
 	if !flag {

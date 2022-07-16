@@ -9,4 +9,5 @@ var (
 	ErrEmailAlreadyExist   = errors.New("Email already exist!")
 	ErrTaskAlreadyExist    = errors.New("Task already exist!")
 	ErrTaskCannotBeUpdated = errors.New("Task status invalid")
+	ErrTaskStatusError     = errors.New("Task cannot be updated previous state/states pending")
 )
