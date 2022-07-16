@@ -42,6 +42,9 @@ func (s *store) UpdateTaskStatus(ctx context.Context, description string, status
 	err = WithDefaultTimeout(ctx, func(ctx context.Context) error {
 		return s.db.GetContext(ctx, &task, findTaskIDByDescription, description)
 	})
+	if err != nil {
+		return err
+	}
 	task.TaskStatusCode = status
 	flag := status != "in_progress" && status != "mr_approved" && status != "code_review"
 	if !flag {

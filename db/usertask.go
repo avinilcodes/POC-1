@@ -20,6 +20,9 @@ func (s *store) AssignTask(ctx context.Context, description string, userEmail st
 	err = WithDefaultTimeout(ctx, func(ctx context.Context) error {
 		return s.db.GetContext(ctx, &user, findUserByEmailQuery, userEmail)
 	})
+	if err != nil {
+		return err
+	}
 	userID := user.ID
 	var task Task
 	err = WithDefaultTimeout(ctx, func(ctx context.Context) error {

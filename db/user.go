@@ -83,6 +83,9 @@ func CreateSuperAdmin(s *store) (err error) {
 			now,
 			now,
 		)
+		if err != nil {
+			return err
+		}
 	}
 	return
 }
