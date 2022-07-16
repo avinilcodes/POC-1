@@ -7,8 +7,6 @@ import (
 	"time"
 
 	"github.com/sethvargo/go-password/password"
-
-	"golang.org/x/crypto/bcrypt"
 )
 
 const (
@@ -25,11 +23,6 @@ const (
 type CreateUserResponse struct {
 	Email    string `json:"email"`
 	Password string `json:"password"`
-}
-
-func HashPassword(password string) (string, error) {
-	bytes, err := bcrypt.GenerateFromPassword([]byte(password), 14)
-	return string(bytes), err
 }
 
 //generate random password

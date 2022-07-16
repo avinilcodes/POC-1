@@ -3,6 +3,7 @@ package server
 import (
 	"net/http"
 	"taskmanager/login"
+	"taskmanager/middleware"
 	"taskmanager/task"
 	"taskmanager/user"
 
@@ -26,15 +27,17 @@ func initRouter(dep dependencies) (router *mux.Router) {
 	router.HandleFunc("/login", login.Login(dep.UserLoginService)).Methods(http.MethodPost)
 
 	//Add user
-	router.HandleFunc("/user", user.AddUserHandler(dep.UserServices)).Methods(http.MethodPost)
+	router.HandleFunc("/user", middleware.AuthorizationMiddleware(user.AddUserHandler(dep.UserServices), "super_admin")).Methods(http.MethodPost)
+	router.HandleFunc("/user", middleware.AuthorizationMiddleware(user.AddUserHandler(dep.UserServices), "admin")).Methods(http.MethodPost)
 	//ListUsers
-	router.HandleFunc("/users", user.ListUserHandler(dep.UserServices)).Methods(http.MethodGet)
+	router.HandleFunc("/users", middleware.AuthorizationMiddleware(user.ListUserHandler(dep.UserServices), "admin")).Methods(http.MethodGet)
+	//router.HandleFunc("/users", user.ListUserHandler(dep.UserServices)).Methods(http.MethodGet)
 	//Create a task
-	router.HandleFunc("/task", task.AddTaskHandler(dep.TaskService)).Methods(http.MethodPost)
+	router.HandleFunc("/task", middleware.AuthorizationMiddleware(task.AddTaskHandler(dep.TaskService), "admin")).Methods(http.MethodPost)
 	//List Tasks
 	router.HandleFunc("/tasks", task.ListTaskHandler(dep.TaskService)).Methods(http.MethodGet)
 	//Assign Task
-	router.HandleFunc("/task/assign", task.AssignTaskHandler(dep.TaskService)).Methods(http.MethodPost)
+	router.HandleFunc("/task/assign", middleware.AuthorizationMiddleware(task.AssignTaskHandler(dep.TaskService), "admin")).Methods(http.MethodPost)
 	//Update task status
 	router.HandleFunc("/task", task.UpdateTaskStatusHandler(dep.TaskService)).Methods(http.MethodPut)
 	return

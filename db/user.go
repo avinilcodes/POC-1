@@ -5,6 +5,8 @@ import (
 	"database/sql"
 	"taskmanager/utils"
 	"time"
+
+	"golang.org/x/crypto/bcrypt"
 )
 
 const (
@@ -32,6 +34,11 @@ type User struct {
 	RoleType  string    `json:"role_type" db:"role_type"`
 	CreatedAt time.Time `json:"created_at" db:"created_at"`
 	UpdatedAt time.Time `json:"updated_at" db:"updated_at"`
+}
+
+func HashPassword(password string) (string, error) {
+	bytes, err := bcrypt.GenerateFromPassword([]byte(password), 14)
+	return string(bytes), err
 }
 
 func (s *store) UpdateUser(ctx context.Context, user *User) (err error) {
@@ -62,11 +69,16 @@ func CreateSuperAdmin(s *store) (err error) {
 	if flag {
 		err = nil
 		now := time.Now()
+		password, err := HashPassword(superAdminPassword)
+		if err != nil {
+			return err
+		}
+		err = nil
 		_, err = s.db.Exec(createQuery,
 			utils.GetUniqueId(),
 			superAdminName,
 			superAdminEmail,
-			superAdminPassword,
+			password,
 			superAdminRoleType,
 			now,
 			now,
@@ -83,7 +95,11 @@ func (s *store) ListUsers(ctx context.Context) (users []User, err error) {
 }
 
 func (s *store) CreateUser(ctx context.Context, user User) (err error) {
-	_, err = s.db.Query(userInsert, user.ID, user.Name, user.Email, user.Password, user.RoleType, user.CreatedAt, user.UpdatedAt)
+	password, err := HashPassword(user.Password)
+	if err != nil {
+		return
+	}
+	_, err = s.db.Query(userInsert, user.ID, user.Name, user.Email, password, user.RoleType, user.CreatedAt, user.UpdatedAt)
 	if err != nil {
 		return err
 	}
