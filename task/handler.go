@@ -20,13 +20,11 @@ func AddTaskHandler(service Service) http.HandlerFunc {
 	return http.HandlerFunc(func(rw http.ResponseWriter, req *http.Request) {
 		req.ParseForm()
 		description := req.Form.Get("description")
-		taskstatuscode := req.Form.Get("taskstatuscode")
-
 		now := time.Now()
 		var task db.Task
 		task.ID = utils.GetUniqueId()
 		task.Description = description
-		task.TaskStatusCode = taskstatuscode
+		task.TaskStatusCode = "not_scoped"
 		task.StartedAt = now
 		task.EndedAt = time.Time{}
 		err := service.addTask(req.Context(), task)
@@ -101,9 +99,13 @@ func UpdateTaskStatusHandler(service Service) http.HandlerFunc {
 				rw.WriteHeader(http.StatusBadRequest)
 				api.Error(rw, http.StatusBadRequest, api.Response{Message: "Task Status cannot be updated as previous states are pending"})
 				return
-			} else if err.Error() == "Task is assignee is different" {
+			} else if err.Error() == "Task assignee is different" {
 				rw.WriteHeader(http.StatusBadRequest)
 				api.Error(rw, http.StatusBadRequest, api.Response{Message: "Task Status cannot be updated as it is not assigned to you"})
+				return
+			} else if err.Error() == "Admin access only" {
+				rw.WriteHeader(http.StatusBadRequest)
+				api.Error(rw, http.StatusBadRequest, api.Response{Message: "Task Status cannot be updated ask admin to change the status"})
 				return
 			} else {
 				app.GetLogger().Warn("Failed because", err)

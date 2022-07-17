@@ -2,6 +2,7 @@ package db
 
 import (
 	"context"
+	"fmt"
 	"time"
 )
 
@@ -62,12 +63,16 @@ func (s *store) UpdateTaskStatus(ctx context.Context, description string, status
 	if err != nil {
 		return err
 	}
-	admin := 0
-	if user.RoleType == "admin" {
-		admin = 1
-	}
-	if user.Email != userEmail && admin == 0 {
+	var currentUser User
+	err = WithDefaultTimeout(ctx, func(ctx context.Context) error {
+		return s.db.GetContext(ctx, &currentUser, findUserByEmailQuery, userEmail)
+	})
+	fmt.Println(currentUser.RoleType != "admin" && user.Email != userEmail)
+	if user.Email != userEmail && currentUser.RoleType != "admin" {
 		return ErrTaskAssignedToAnotherUser
+	}
+	if status == "mr_approved" && currentUser.RoleType != "admin" {
+		return ErrOnlyAdminAccess
 	}
 	flag := status != "in_progress" && status != "mr_approved" && status != "code_review"
 	if !flag {

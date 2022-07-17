@@ -23,8 +23,14 @@ func AuthorizationMiddleware(handler http.Handler, roleType string) http.Handler
 			api.Error(w, http.StatusUnauthorized, api.Response{Message: err.Error()})
 			return
 		}
-
-		if !strings.EqualFold(claims.RoleType, roleType) {
+		roleTypes := strings.Split(roleType, ",")
+		if len(roleTypes) > 1 {
+			if !strings.EqualFold(claims.RoleType, roleTypes[0]) && !strings.EqualFold(claims.RoleType, roleTypes[1]) {
+				app.GetLogger().Warn("Access denied for %v for %v", claims.Email, r.URL.RequestURI())
+				api.Error(w, http.StatusForbidden, api.Response{Message: "Access Denied"})
+				return
+			}
+		} else if !strings.EqualFold(claims.RoleType, roleType) {
 			app.GetLogger().Warn("Access denied for %v for %v", claims.Email, r.URL.RequestURI())
 			api.Error(w, http.StatusForbidden, api.Response{Message: "Access Denied"})
 			return
