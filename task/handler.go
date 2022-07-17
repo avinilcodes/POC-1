@@ -2,7 +2,6 @@ package task
 
 import (
 	"encoding/json"
-	"fmt"
 	"net/http"
 	"strings"
 	"taskmanager/api"
@@ -91,9 +90,7 @@ func UpdateTaskStatusHandler(service Service) http.HandlerFunc {
 		description := req.Form.Get("description")
 		reqToken := req.Header.Get("Authorization")
 		splitToken := strings.Split(reqToken, "Bearer ")
-		fmt.Println(splitToken)
 		reqToken = splitToken[1]
-		fmt.Println("Here1")
 		err := service.updateTaskStatus(req.Context(), description, status, reqToken)
 		if err != nil {
 			if err.Error() == "Task status invalid" {
