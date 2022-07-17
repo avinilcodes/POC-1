@@ -2,6 +2,7 @@ package db
 
 import (
 	"context"
+	"fmt"
 	"time"
 )
 
@@ -45,13 +46,19 @@ func (s *store) UpdateTaskStatus(ctx context.Context, description string, status
 	if err != nil {
 		return err
 	}
-	if task.TaskStatusCode == "in_progress" || task.TaskStatusCode == "scoped" || task.TaskStatusCode == "not_scoped" && status == "mr_approved" {
+	if (task.TaskStatusCode == "in_progress" || task.TaskStatusCode == "scoped" || task.TaskStatusCode == "not_scoped") && status == "mr_approved" {
+		fmt.Println("1", status, task.TaskStatusCode)
+
 		return ErrTaskStatusError
 	}
 	if task.TaskStatusCode == "not_scoped" && status == "in_progress" {
+		fmt.Println("2", status, task.TaskStatusCode)
+
 		return ErrTaskStatusError
 	}
-	if task.TaskStatusCode == "scoped" || task.TaskStatusCode == "not_scoped" && status == "code_review" {
+	if (task.TaskStatusCode == "scoped" || task.TaskStatusCode == "not_scoped") && status == "code_review" {
+		fmt.Println("3", status, task.TaskStatusCode)
+
 		return ErrTaskStatusError
 	}
 	task.TaskStatusCode = status
