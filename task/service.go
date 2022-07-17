@@ -5,6 +5,7 @@ import (
 	"taskmanager/app"
 	"taskmanager/db"
 
+	"github.com/golang-jwt/jwt"
 	"go.uber.org/zap"
 )
 
@@ -12,7 +13,7 @@ type Service interface {
 	addTask(ctx context.Context, task db.Task) (err error)
 	assignTask(ctx context.Context, assignTaskRequest AssignTaskRequest) (err error)
 	listTasks(ctx context.Context) (tasks []db.Task, err error)
-	updateTaskStatus(ctx context.Context, description string, status string) (err error)
+	updateTaskStatus(ctx context.Context, description string, status string, token string) (err error)
 }
 
 type taskService struct {
@@ -46,10 +47,24 @@ func (ts *taskService) listTasks(ctx context.Context) (tasks []db.Task, err erro
 	return
 }
 
-func (ts *taskService) updateTaskStatus(ctx context.Context, description string, status string) (err error) {
-	err = ts.store.UpdateTaskStatus(ctx, description, status)
+func (ts *taskService) updateTaskStatus(ctx context.Context, description string, status string, token string) (err error) {
+	tokenString := token
+	claims := jwt.MapClaims{}
+	_, err = jwt.ParseWithClaims(tokenString, claims, func(token *jwt.Token) (interface{}, error) {
+		return []byte("my_secret_key"), nil
+	})
 	if err != nil {
-		app.GetLogger().Warn("Error while adding task", err.Error())
+		return
+	}
+	var email string
+	for key, val := range claims {
+		if key == "email" {
+			email = val.(string)
+		}
+	}
+	err = ts.store.UpdateTaskStatus(ctx, description, status, email)
+	if err != nil {
+		app.GetLogger().Warn("Error while updating task", err.Error())
 		return
 	}
 	return

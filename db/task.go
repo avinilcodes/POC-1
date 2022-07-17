@@ -2,7 +2,6 @@ package db
 
 import (
 	"context"
-	"fmt"
 	"time"
 )
 
@@ -11,6 +10,7 @@ const (
 	insertTask              = `INSERT INTO tasks (id,description,task_status_code,started_at,ended_at) VALUES ($1,$2,$3,$4,$5)`
 	findAllTasks            = "select * from tasks"
 	updateTaskStatus        = `update tasks set task_status_code=$1 where id =$2`
+	findUserFromTaskId      = `select * from users where id = (select user_id from users_tasks where task_id = $1)`
 )
 
 type Task struct {
@@ -38,7 +38,7 @@ func (s *store) CreateTask(ctx context.Context, task Task) (err error) {
 
 }
 
-func (s *store) UpdateTaskStatus(ctx context.Context, description string, status string) (err error) {
+func (s *store) UpdateTaskStatus(ctx context.Context, description string, status string, userEmail string) (err error) {
 	var task Task
 	err = WithDefaultTimeout(ctx, func(ctx context.Context) error {
 		return s.db.GetContext(ctx, &task, findTaskIDByDescription, description)
@@ -47,27 +47,34 @@ func (s *store) UpdateTaskStatus(ctx context.Context, description string, status
 		return err
 	}
 	if (task.TaskStatusCode == "in_progress" || task.TaskStatusCode == "scoped" || task.TaskStatusCode == "not_scoped") && status == "mr_approved" {
-		fmt.Println("1", status, task.TaskStatusCode)
-
 		return ErrTaskStatusError
 	}
 	if task.TaskStatusCode == "not_scoped" && status == "in_progress" {
-		fmt.Println("2", status, task.TaskStatusCode)
-
 		return ErrTaskStatusError
 	}
 	if (task.TaskStatusCode == "scoped" || task.TaskStatusCode == "not_scoped") && status == "code_review" {
-		fmt.Println("3", status, task.TaskStatusCode)
-
 		return ErrTaskStatusError
 	}
-	task.TaskStatusCode = status
+	var user User
+	err = WithDefaultTimeout(ctx, func(ctx context.Context) error {
+		return s.db.GetContext(ctx, &user, findUserFromTaskId, task.ID)
+	})
+	if err != nil {
+		return err
+	}
+	admin := 0
+	if user.RoleType == "admin" {
+		admin = 1
+	}
+	if user.Email != userEmail && admin == 0 {
+		return ErrTaskAssignedToAnotherUser
+	}
 	flag := status != "in_progress" && status != "mr_approved" && status != "code_review"
 	if !flag {
 		if status == "mr_approved" {
 			task.EndedAt = time.Now()
 		}
-		_, err = s.db.Query(updateTaskStatus, task.TaskStatusCode, task.ID)
+		_, err = s.db.Query(updateTaskStatus, status, task.ID)
 		if err != nil {
 			return err
 		}

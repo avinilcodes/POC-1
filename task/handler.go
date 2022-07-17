@@ -2,7 +2,9 @@ package task
 
 import (
 	"encoding/json"
+	"fmt"
 	"net/http"
+	"strings"
 	"taskmanager/api"
 	"taskmanager/app"
 	"taskmanager/db"
@@ -20,6 +22,7 @@ func AddTaskHandler(service Service) http.HandlerFunc {
 		req.ParseForm()
 		description := req.Form.Get("description")
 		taskstatuscode := req.Form.Get("taskstatuscode")
+
 		now := time.Now()
 		var task db.Task
 		task.ID = utils.GetUniqueId()
@@ -39,7 +42,6 @@ func AddTaskHandler(service Service) http.HandlerFunc {
 				return
 			}
 		}
-		rw.Header().Add("Content-Type", "application/json")
 		api.Success(rw, http.StatusOK, api.Response{Message: "Task added Successfully"})
 	})
 }
@@ -58,7 +60,6 @@ func AssignTaskHandler(service Service) http.HandlerFunc {
 			rw.WriteHeader(http.StatusInternalServerError)
 			return
 		}
-		rw.Header().Add("Content-Type", "application/json")
 		api.Success(rw, http.StatusOK, api.Response{Message: "Task assignment Successful"})
 	})
 }
@@ -88,7 +89,12 @@ func UpdateTaskStatusHandler(service Service) http.HandlerFunc {
 		req.ParseForm()
 		status := req.Form.Get("status")
 		description := req.Form.Get("description")
-		err := service.updateTaskStatus(req.Context(), description, status)
+		reqToken := req.Header.Get("Authorization")
+		splitToken := strings.Split(reqToken, "Bearer ")
+		fmt.Println(splitToken)
+		reqToken = splitToken[1]
+		fmt.Println("Here1")
+		err := service.updateTaskStatus(req.Context(), description, status, reqToken)
 		if err != nil {
 			if err.Error() == "Task status invalid" {
 				rw.WriteHeader(http.StatusBadRequest)
@@ -98,13 +104,16 @@ func UpdateTaskStatusHandler(service Service) http.HandlerFunc {
 				rw.WriteHeader(http.StatusBadRequest)
 				api.Error(rw, http.StatusBadRequest, api.Response{Message: "Task Status cannot be updated as previous states are pending"})
 				return
+			} else if err.Error() == "Task is assignee is different" {
+				rw.WriteHeader(http.StatusBadRequest)
+				api.Error(rw, http.StatusBadRequest, api.Response{Message: "Task Status cannot be updated as it is not assigned to you"})
+				return
 			} else {
 				app.GetLogger().Warn("Failed because", err)
 				rw.WriteHeader(http.StatusInternalServerError)
 				return
 			}
 		}
-		rw.Header().Add("Content-Type", "application/json")
 		api.Success(rw, http.StatusOK, api.Response{Message: "Task status update Successful"})
 	})
 }
