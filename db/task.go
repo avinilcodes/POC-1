@@ -67,6 +67,9 @@ func (s *store) UpdateTaskStatus(ctx context.Context, description string, status
 	err = WithDefaultTimeout(ctx, func(ctx context.Context) error {
 		return s.db.GetContext(ctx, &currentUser, findUserByEmailQuery, userEmail)
 	})
+	if err != nil {
+		return
+	}
 	fmt.Println(currentUser.RoleType != "admin" && user.Email != userEmail)
 	if user.Email != userEmail && currentUser.RoleType != "admin" {
 		return ErrTaskAssignedToAnotherUser

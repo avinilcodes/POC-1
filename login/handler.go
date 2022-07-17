@@ -2,14 +2,12 @@ package login
 
 import (
 	"encoding/json"
-	"fmt"
 	"net/http"
 	"taskmanager/api"
 )
 
 func Login(service Service) http.HandlerFunc {
 	return http.HandlerFunc(func(rw http.ResponseWriter, req *http.Request) {
-		fmt.Println("Here")
 		var u loginRequest
 		err := json.NewDecoder(req.Body).Decode(&u)
 		if err != nil {
