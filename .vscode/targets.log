@@ -1,6 +1,4 @@
 make all --print-data-base --no-builtin-variables --no-builtin-rules --question
-make: *** No rule to make target 'all'.  Stop.
-
 # GNU Make 4.2.1
 # Built for x86_64-pc-linux-gnu
 # Copyright (C) 1988-2016 Free Software Foundation, Inc.
@@ -8,7 +6,7 @@ make: *** No rule to make target 'all'.  Stop.
 # This is free software: you are free to change and redistribute it.
 # There is NO WARRANTY, to the extent permitted by law.
 
-# Make data base, printed on Fri Jul 15 21:57:48 2022
+# Make data base, printed on Sun Jul 17 07:36:23 2022
 
 # Variables
 
@@ -51,7 +49,7 @@ VTE_VERSION = 6003
 # environment
 VSCODE_NLS_CONFIG = {"locale":"en-gb","availableLanguages":{},"_languagePackSupport":true}
 # environment
-JOURNAL_STREAM = 8:49721
+JOURNAL_STREAM = 8:51830
 # environment
 XDG_CONFIG_DIRS = /etc/xdg/xdg-ubuntu:/etc/xdg
 # makefile (from 'Makefile', line 1)
@@ -67,13 +65,13 @@ XDG_DATA_DIRS = /usr/share/ubuntu:/usr/local/share/:/usr/share/:/var/lib/snapd/d
 # environment
 VSCODE_AMD_ENTRYPOINT = vs/workbench/api/node/extensionHostProcess
 # environment
-DBUS_SESSION_BUS_ADDRESS = unix:path=/run/user/1001/bus,guid=92b3825a2f370dd4a526dee862d1955d
+DBUS_SESSION_BUS_ADDRESS = unix:path=/run/user/1001/bus,guid=94a5e5f4d80d0b2271b0705862d36d55
 # environment
 VSCODE_VERBOSE_LOGGING = true
 # environment
 _ = /usr/bin/code
 # environment
-MANAGERPID = 2083
+MANAGERPID = 2204
 # environment
 LESSOPEN = | /usr/bin/lesspipe %s
 # environment
@@ -87,7 +85,7 @@ PATH = /home/avinil/.local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin
 # environment
 GPG_AGENT_INFO = /run/user/1001/gnupg/S.gpg-agent:0:1
 # environment
-SESSION_MANAGER = local/avinil-Latitude-3420:@/tmp/.ICE-unix/2300,unix/avinil-Latitude-3420:/tmp/.ICE-unix/2300
+SESSION_MANAGER = local/avinil-Latitude-3420:@/tmp/.ICE-unix/2424,unix/avinil-Latitude-3420:/tmp/.ICE-unix/2424
 # environment
 XDG_RUNTIME_DIR = /run/user/1001
 # environment
@@ -99,7 +97,7 @@ VSCODE_LOG_STACK = false
 # environment
 ELECTRON_RUN_AS_NODE = 1
 # environment
-INVOCATION_ID = 659cffc1a27e4eb7b141a99ddfd16a37
+INVOCATION_ID = e176c88cad9f45dba3992b6933d6abc5
 # default
 .FEATURES := target-specific order-only second-expansion else-if shortest-stem undefine oneshell archives jobserver output-sync check-symlink load
 # environment
@@ -119,7 +117,7 @@ PWD = /home/avinil/GoProjects/myProjects/POC1
 # default
 .LOADED := 
 # environment
-SSH_AGENT_PID = 2262
+SSH_AGENT_PID = 2382
 # environment
 ORIGINAL_XDG_CURRENT_DESKTOP = ubuntu:GNOME
 # environment
@@ -161,7 +159,7 @@ SHLVL = 1
 # environment
 GNOME_SHELL_SESSION_MODE = ubuntu
 # environment
-VSCODE_IPC_HOOK_EXTHOST = /run/user/1001/vscode-ipc-edfc2420-b825-45df-8380-7ba76785955b.sock
+VSCODE_IPC_HOOK_EXTHOST = /run/user/1001/vscode-ipc-5e8d99b6-d61a-4e0a-be6c-b17c33c3ed6b.sock
 # default
 MAKE_VERSION := 4.2.1
 # environment
@@ -209,13 +207,13 @@ DBUS_STARTER_BUS_TYPE = session
 # makefile (from 'Makefile', line 4)
 ALL_PACKAGES = $(shell go list ./... | grep -v "vendor")
 # environment
-GNOME_TERMINAL_SCREEN = /org/gnome/Terminal/screen/30f132ae_33e5_4e03_9b00_6e49e8d5c71f
+GNOME_TERMINAL_SCREEN = /org/gnome/Terminal/screen/a40e7efa_6781_4f8c_b39e_71a4bc2c48f3
 # automatic
 ^F = $(notdir $^)
 # makefile (from 'Makefile', line 2)
 DB_NAME = boilerplate_development
 # environment
-GNOME_TERMINAL_SERVICE = :1.78
+GNOME_TERMINAL_SERVICE = :1.90
 # default
 SUFFIXES := 
 # environment
@@ -233,9 +231,9 @@ LANG = C
 # environment
 TERM = xterm-256color
 # environment
-VSCODE_PID = 2670
+VSCODE_PID = 4486
 # environment
-DBUS_STARTER_ADDRESS = unix:path=/run/user/1001/bus,guid=92b3825a2f370dd4a526dee862d1955d
+DBUS_STARTER_ADDRESS = unix:path=/run/user/1001/bus,guid=94a5e5f4d80d0b2271b0705862d36d55
 # variable set hash-table stats:
 # Load=112/1024=11%, Rehash=0, Collisions=15/137=11%
 
@@ -245,9 +243,9 @@ DBUS_STARTER_ADDRESS = unix:path=/run/user/1001/bus,guid=92b3825a2f370dd4a526dee
 
 # Directories
 
-# . (device 66307, inode 20447783): 25 files, no impossibilities.
+# . (device 66307, inode 20447783): 24 files, no impossibilities.
 
-# 25 files, no impossibilities in 1 directories.
+# 24 files, no impossibilities in 1 directories.
 
 # Implicit Rules
 
@@ -279,9 +277,11 @@ db.create:
 
 build-deps:
 #  Implicit rule search has not been done.
+ 
+make: *** No rule to make target 'all'.  Stop.
+
 #  Modification time never checked.
 #  File has not been updated.
- 
 #  recipe to execute (from 'Makefile', line 12):
 	dep ensure -v
 
@@ -399,12 +399,12 @@ db.migrate: db.create_extension
 
 # No general ('VPATH' variable) search path.
 
-# strcache buffers: 1 (0) / strings = 46 / storage = 386 B / avg = 8 B
-# current buf: size = 8162 B / used = 386 B / count = 46 / avg = 8 B
+# strcache buffers: 1 (0) / strings = 45 / storage = 374 B / avg = 8 B
+# current buf: size = 8162 B / used = 374 B / count = 45 / avg = 8 B
 
-# strcache performance: lookups = 78 / hit rate = 41%
+# strcache performance: lookups = 77 / hit rate = 41%
 # hash-table stats:
-# Load=46/8192=1%, Rehash=0, Collisions=1/78=1%
-# Finished Make data base on Fri Jul 15 21:57:48 2022
+# Load=45/8192=1%, Rehash=0, Collisions=1/77=1%
+# Finished Make data base on Sun Jul 17 07:36:23 2022
 
  

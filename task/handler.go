@@ -2,7 +2,6 @@ package task
 
 import (
 	"encoding/json"
-	"fmt"
 	"net/http"
 	"taskmanager/api"
 	"taskmanager/app"
@@ -29,7 +28,6 @@ func AddTaskHandler(service Service) http.HandlerFunc {
 		task.StartedAt = now
 		task.EndedAt = time.Time{}
 		err := service.addTask(req.Context(), task)
-		fmt.Println(err.Error())
 		if err != nil {
 			if err.Error() == "Task already exist!" {
 				rw.WriteHeader(http.StatusBadRequest)
