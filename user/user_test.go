@@ -40,9 +40,9 @@ func (suite *ServiceTestSuite) TearDownTest() {
 func (suite *ServiceTestSuite) TestAddUser() {
 	t := suite.T()
 	var user db.User
-	user.Name = "Gautam"
-	user.Email = "Gautam@Joshsoftware.com"
-	user.Password = "Gautam@Josh"
+	user.Name = "Sachin"
+	user.Email = "Sachin@Joshsoftware.com"
+	user.Password = "Sachin@Josh"
 	user.RoleType = "super_admin"
 	ctx := context.Background()
 

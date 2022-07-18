@@ -11,6 +11,7 @@ const (
 	findAllTasks            = "select * from tasks"
 	updateTaskStatus        = `update tasks set task_status_code=$1 where id =$2`
 	findUserFromTaskId      = `select * from users where id = (select user_id from users_tasks where task_id = $1)`
+	findTasksByUserId       = `select * from tasks where id in (select task_id from users_tasks where user_id= $1)`
 )
 
 type Task struct {
@@ -90,9 +91,22 @@ func (s *store) UpdateTaskStatus(ctx context.Context, description string, status
 
 }
 
-func (s *store) ListTasks(ctx context.Context) (tasks []Task, err error) {
+func (s *store) ListTasks(ctx context.Context, email string) (tasks []Task, err error) {
+	var currentUser User
 	err = WithDefaultTimeout(ctx, func(ctx context.Context) error {
-		return s.db.SelectContext(ctx, &tasks, findAllTasks)
+		return s.db.GetContext(ctx, &currentUser, findUserByEmailQuery, email)
 	})
+	if err != nil {
+		return
+	}
+	if currentUser.RoleType == "admin" || currentUser.RoleType == "super_admin" {
+		err = WithDefaultTimeout(ctx, func(ctx context.Context) error {
+			return s.db.SelectContext(ctx, &tasks, findAllTasks)
+		})
+	} else {
+		err = WithDefaultTimeout(ctx, func(ctx context.Context) error {
+			return s.db.SelectContext(ctx, &tasks, findTasksByUserId, currentUser.ID)
+		})
+	}
 	return
 }

@@ -65,7 +65,10 @@ func AssignTaskHandler(service Service) http.HandlerFunc {
 
 func ListTaskHandler(service Service) http.HandlerFunc {
 	return http.HandlerFunc(func(rw http.ResponseWriter, req *http.Request) {
-		tasks, err := service.listTasks(req.Context())
+		reqToken := req.Header.Get("Authorization")
+		splitToken := strings.Split(reqToken, "Bearer ")
+		reqToken = splitToken[1]
+		tasks, err := service.listTasks(req.Context(), reqToken)
 		if err != nil {
 			app.GetLogger().Warn("error fetching tasks", err.Error())
 			rw.WriteHeader(http.StatusInternalServerError)

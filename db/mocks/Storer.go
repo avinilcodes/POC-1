@@ -74,13 +74,13 @@ func (_m *Storer) FindUserByEmail(ctx context.Context, email string) (db.User, e
 	return r0, r1
 }
 
-// ListTasks provides a mock function with given fields: ctx
-func (_m *Storer) ListTasks(ctx context.Context) ([]db.Task, error) {
-	ret := _m.Called(ctx)
+// ListTasks provides a mock function with given fields: ctx, email
+func (_m *Storer) ListTasks(ctx context.Context, email string) ([]db.Task, error) {
+	ret := _m.Called(ctx, email)
 
 	var r0 []db.Task
-	if rf, ok := ret.Get(0).(func(context.Context) []db.Task); ok {
-		r0 = rf(ctx)
+	if rf, ok := ret.Get(0).(func(context.Context, string) []db.Task); ok {
+		r0 = rf(ctx, email)
 	} else {
 		if ret.Get(0) != nil {
 			r0 = ret.Get(0).([]db.Task)
@@ -88,8 +88,8 @@ func (_m *Storer) ListTasks(ctx context.Context) ([]db.Task, error) {
 	}
 
 	var r1 error
-	if rf, ok := ret.Get(1).(func(context.Context) error); ok {
-		r1 = rf(ctx)
+	if rf, ok := ret.Get(1).(func(context.Context, string) error); ok {
+		r1 = rf(ctx, email)
 	} else {
 		r1 = ret.Error(1)
 	}
