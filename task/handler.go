@@ -11,23 +11,22 @@ import (
 	"time"
 )
 
-type AssignTaskRequest struct {
-	Description string
-	UserEmail   string
-}
-
 func AddTaskHandler(service Service) http.HandlerFunc {
 	return http.HandlerFunc(func(rw http.ResponseWriter, req *http.Request) {
-		req.ParseForm()
-		description := req.Form.Get("description")
+		var atr AddTaskRequest
+		err := json.NewDecoder(req.Body).Decode(&atr)
+		if err != nil {
+			api.Error(rw, http.StatusBadRequest, api.Response{Message: err.Error()})
+			return
+		}
 		now := time.Now()
 		var task db.Task
 		task.ID = utils.GetUniqueId()
-		task.Description = description
+		task.Description = atr.Description
 		task.TaskStatusCode = "not_scoped"
 		task.StartedAt = now
 		task.EndedAt = time.Time{}
-		err := service.addTask(req.Context(), task)
+		err = service.addTask(req.Context(), task)
 		if err != nil {
 			if err.Error() == "Task already exist!" {
 				rw.WriteHeader(http.StatusBadRequest)
@@ -45,13 +44,16 @@ func AddTaskHandler(service Service) http.HandlerFunc {
 
 func AssignTaskHandler(service Service) http.HandlerFunc {
 	return http.HandlerFunc(func(rw http.ResponseWriter, req *http.Request) {
-		req.ParseForm()
-		description := req.Form.Get("description")
-		userEmail := req.Form.Get("email")
+		var atr AssignTaskRequest
+		err := json.NewDecoder(req.Body).Decode(&atr)
+		if err != nil {
+			api.Error(rw, http.StatusBadRequest, api.Response{Message: err.Error()})
+			return
+		}
 		var assignTaskRequest AssignTaskRequest
-		assignTaskRequest.Description = description
-		assignTaskRequest.UserEmail = userEmail
-		err := service.assignTask(req.Context(), assignTaskRequest)
+		assignTaskRequest.Description = atr.Description
+		assignTaskRequest.Email = atr.Email
+		err = service.assignTask(req.Context(), assignTaskRequest)
 		if err != nil {
 			app.GetLogger().Warn("error creating task", err.Error())
 			rw.WriteHeader(http.StatusInternalServerError)
@@ -83,13 +85,16 @@ func ListTaskHandler(service Service) http.HandlerFunc {
 
 func UpdateTaskStatusHandler(service Service) http.HandlerFunc {
 	return http.HandlerFunc(func(rw http.ResponseWriter, req *http.Request) {
-		req.ParseForm()
-		status := req.Form.Get("status")
-		description := req.Form.Get("description")
+		var utr UpdateTaskRequest
+		err := json.NewDecoder(req.Body).Decode(&utr)
+		if err != nil {
+			api.Error(rw, http.StatusBadRequest, api.Response{Message: err.Error()})
+			return
+		}
 		reqToken := req.Header.Get("Authorization")
 		splitToken := strings.Split(reqToken, "Bearer ")
 		reqToken = splitToken[1]
-		err := service.updateTaskStatus(req.Context(), description, status, reqToken)
+		err = service.updateTaskStatus(req.Context(), utr.Description, utr.Status, reqToken)
 		if err != nil {
 			if err.Error() == "Task status invalid" {
 				rw.WriteHeader(http.StatusBadRequest)

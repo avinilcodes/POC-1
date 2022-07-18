@@ -37,21 +37,22 @@ func ListUserHandler(service Service) http.HandlerFunc {
 
 func AddUserHandler(service Service) http.HandlerFunc {
 	return http.HandlerFunc(func(rw http.ResponseWriter, req *http.Request) {
-		req.ParseForm()
-		name := req.Form.Get("name")
-		email := req.Form.Get("email")
-		password := req.Form.Get("password")
-		role_type := req.Form.Get("role_type")
+		var aur AddUserRequest
+		err := json.NewDecoder(req.Body).Decode(&aur)
+		if err != nil {
+			api.Error(rw, http.StatusBadRequest, api.Response{Message: err.Error()})
+			return
+		}
 		now := time.Now()
 		var user db.User
 		user.ID = utils.GetUniqueId()
-		user.Name = name
-		user.Email = email
-		user.Password = password
-		user.RoleType = role_type
+		user.Name = aur.Name
+		user.Email = aur.Email
+		user.Password = aur.Password
+		user.RoleType = aur.RoleType
 		user.CreatedAt = now
 		user.UpdatedAt = now
-		err := service.addUser(req.Context(), user)
+		err = service.addUser(req.Context(), user)
 		if err != nil {
 			app.GetLogger().Warn("error creating user", err.Error())
 			rw.WriteHeader(http.StatusInternalServerError)

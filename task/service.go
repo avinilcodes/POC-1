@@ -31,9 +31,9 @@ func (ts *taskService) addTask(ctx context.Context, task db.Task) (err error) {
 }
 
 func (ts *taskService) assignTask(ctx context.Context, assignTaskRequest AssignTaskRequest) (err error) {
-	err = ts.store.AssignTask(ctx, assignTaskRequest.Description, assignTaskRequest.UserEmail)
+	err = ts.store.AssignTask(ctx, assignTaskRequest.Description, assignTaskRequest.Email)
 	if err != nil {
-		app.GetLogger().Warn("Error while adding task", err.Error())
+		app.GetLogger().Warn("Error while assigning task", err.Error())
 		return
 	}
 	return
@@ -41,7 +41,7 @@ func (ts *taskService) assignTask(ctx context.Context, assignTaskRequest AssignT
 func (ts *taskService) listTasks(ctx context.Context) (tasks []db.Task, err error) {
 	tasks, err = ts.store.ListTasks(ctx)
 	if err != nil {
-		app.GetLogger().Warn("Error while adding task", err.Error())
+		app.GetLogger().Warn("Error while fetching tasks", err.Error())
 		return
 	}
 	return
