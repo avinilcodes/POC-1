@@ -1,4 +1,6 @@
 make all --print-data-base --no-builtin-variables --no-builtin-rules --question
+make: *** No rule to make target 'all'.  Stop.
+
 # GNU Make 4.2.1
 # Built for x86_64-pc-linux-gnu
 # Copyright (C) 1988-2016 Free Software Foundation, Inc.
@@ -6,7 +8,7 @@ make all --print-data-base --no-builtin-variables --no-builtin-rules --question
 # This is free software: you are free to change and redistribute it.
 # There is NO WARRANTY, to the extent permitted by law.
 
-# Make data base, printed on Sun Jul 17 07:36:23 2022
+# Make data base, printed on Mon Jul 18 10:39:25 2022
 
 # Variables
 
@@ -159,7 +161,7 @@ SHLVL = 1
 # environment
 GNOME_SHELL_SESSION_MODE = ubuntu
 # environment
-VSCODE_IPC_HOOK_EXTHOST = /run/user/1001/vscode-ipc-5e8d99b6-d61a-4e0a-be6c-b17c33c3ed6b.sock
+VSCODE_IPC_HOOK_EXTHOST = /run/user/1001/vscode-ipc-8e697985-aa00-4236-ac4c-d8d8d99f29f0.sock
 # default
 MAKE_VERSION := 4.2.1
 # environment
@@ -172,6 +174,8 @@ XDG_CURRENT_DESKTOP = Unity
 %D = $(patsubst %/,%,$(dir $%))
 # default
 MAKE_COMMAND := make
+# environment
+OLDPWD = /home/avinil
 # default
 .VARIABLES := 
 # automatic
@@ -193,6 +197,8 @@ GDK_BACKEND = x11
 # automatic
 +F = $(notdir $+)
 # environment
+NO_AT_BRIDGE = 1
+# environment
 QT_ACCESSIBILITY = 1
 # default
 MAKEFILES := 
@@ -207,7 +213,7 @@ DBUS_STARTER_BUS_TYPE = session
 # makefile (from 'Makefile', line 4)
 ALL_PACKAGES = $(shell go list ./... | grep -v "vendor")
 # environment
-GNOME_TERMINAL_SCREEN = /org/gnome/Terminal/screen/a40e7efa_6781_4f8c_b39e_71a4bc2c48f3
+GNOME_TERMINAL_SCREEN = /org/gnome/Terminal/screen/b3e179e6_a16d_4c2f_b19a_371040ac26e3
 # automatic
 ^F = $(notdir $^)
 # makefile (from 'Makefile', line 2)
@@ -235,7 +241,7 @@ VSCODE_PID = 4486
 # environment
 DBUS_STARTER_ADDRESS = unix:path=/run/user/1001/bus,guid=94a5e5f4d80d0b2271b0705862d36d55
 # variable set hash-table stats:
-# Load=112/1024=11%, Rehash=0, Collisions=15/137=11%
+# Load=114/1024=11%, Rehash=0, Collisions=15/139=11%
 
 # Pattern-specific Variable Values
 
@@ -277,9 +283,6 @@ db.create:
 
 build-deps:
 #  Implicit rule search has not been done.
- 
-make: *** No rule to make target 'all'.  Stop.
-
 #  Modification time never checked.
 #  File has not been updated.
 #  recipe to execute (from 'Makefile', line 12):
@@ -392,6 +395,7 @@ db.migrate: db.create_extension
 	$(APP_EXECUTABLE) migrate
 
 # files hash-table stats:
+ 
 # Load=20/1024=2%, Rehash=0, Collisions=0/45=0%
 # VPATH Search Paths
 
@@ -405,6 +409,6 @@ db.migrate: db.create_extension
 # strcache performance: lookups = 77 / hit rate = 41%
 # hash-table stats:
 # Load=45/8192=1%, Rehash=0, Collisions=1/77=1%
-# Finished Make data base on Sun Jul 17 07:36:23 2022
+# Finished Make data base on Mon Jul 18 10:39:25 2022
 
  
