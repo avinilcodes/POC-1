@@ -20,6 +20,14 @@ require (
 )
 
 require (
+	github.com/BurntSushi/toml v0.3.1 // indirect
+	golang.org/x/mod v0.4.2 // indirect
+	golang.org/x/tools v0.1.5 // indirect
+	golang.org/x/xerrors v0.0.0-20220517211312-f3a8303e98df // indirect
+	honnef.co/go/tools v0.0.1-2020.1.4 // indirect
+)
+
+require (
 	github.com/Microsoft/go-winio v0.5.2 // indirect
 	github.com/cpuguy83/go-md2man/v2 v2.0.0-20190314233015-f79a8a8ca69d // indirect
 	github.com/davecgh/go-spew v1.1.1 // indirect

@@ -10,10 +10,6 @@ import (
 	"time"
 )
 
-func isBadRequest(err error) bool {
-	return err == errEmptyName || err == errEmptyPassword
-}
-
 func ListUserHandler(service Service) http.HandlerFunc {
 	return http.HandlerFunc(func(rw http.ResponseWriter, req *http.Request) {
 		users, err := service.listUsers(req.Context())

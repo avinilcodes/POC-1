@@ -11,13 +11,3 @@ type AddUserRequest struct {
 	Password string
 	RoleType string `json:"role_type"`
 }
-
-func (ur updateRequest) Validate() (err error) {
-	if ur.Password == "" {
-		return errEmptyPassword
-	}
-	if ur.Name == "" {
-		return errEmptyName
-	}
-	return
-}
