@@ -2,7 +2,6 @@ package db
 
 import (
 	"context"
-	"fmt"
 	"time"
 )
 
@@ -70,8 +69,7 @@ func (s *store) UpdateTaskStatus(ctx context.Context, description string, status
 	if err != nil {
 		return
 	}
-	fmt.Println(currentUser.RoleType != "admin" && user.Email != userEmail)
-	if user.Email != userEmail && currentUser.RoleType != "admin" {
+	if user.Email != userEmail && currentUser.Email != "admin" {
 		return ErrTaskAssignedToAnotherUser
 	}
 	if status == "mr_approved" && currentUser.RoleType != "admin" {

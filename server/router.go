@@ -23,7 +23,7 @@ func initRouter(dep dependencies) (router *mux.Router) {
 	router.HandleFunc("/user", middleware.AuthorizationMiddleware(user.AddUserHandler(dep.UserServices), "super_admin,admin")).Methods(http.MethodPost)
 
 	//ListUsers
-	router.HandleFunc("/users", middleware.AuthorizationMiddleware(user.ListUserHandler(dep.UserServices), "admin")).Methods(http.MethodGet)
+	router.HandleFunc("/users", middleware.AuthorizationMiddleware(user.ListUserHandler(dep.UserServices), "admin,super_admin")).Methods(http.MethodGet)
 
 	//Create a task
 	router.HandleFunc("/task", middleware.AuthorizationMiddleware(task.AddTaskHandler(dep.TaskService), "admin")).Methods(http.MethodPost)

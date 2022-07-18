@@ -13,7 +13,7 @@ type ctxKey int
 
 const (
 	dbKey          ctxKey = 0
-	defaultTimeout        = 2 * time.Second
+	defaultTimeout        = 4 * time.Second
 )
 
 type Storer interface {
