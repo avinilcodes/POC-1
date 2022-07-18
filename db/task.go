@@ -69,7 +69,7 @@ func (s *store) UpdateTaskStatus(ctx context.Context, description string, status
 	if err != nil {
 		return
 	}
-	if user.Email != userEmail && currentUser.Email != "admin" {
+	if user.Email != userEmail && currentUser.RoleType != "admin" {
 		return ErrTaskAssignedToAnotherUser
 	}
 	if status == "mr_approved" && currentUser.RoleType != "admin" {
