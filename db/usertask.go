@@ -2,7 +2,6 @@ package db
 
 import (
 	"context"
-	"fmt"
 	"time"
 )
 
@@ -17,29 +16,11 @@ type UserTask struct {
 }
 
 //need to add more, only 2 tasks can be assigned to a user , 1 task can be assigned to 2 users
-func (s *store) AssignTask(ctx context.Context, description string, userEmail string) (err error) {
-	var user User
-	err = WithDefaultTimeout(ctx, func(ctx context.Context) error {
-		return s.db.GetContext(ctx, &user, findUserByEmailQuery, userEmail)
-	})
+func (s *store) AssignTask(ctx context.Context, userID string, taskID string) (err error) {
+	_, err = s.db.Query(updateTaskStatus, "scoped", time.Time{}, taskID)
 	if err != nil {
 		return err
 	}
-	userID := user.ID
-	var task Task
-	err = WithDefaultTimeout(ctx, func(ctx context.Context) error {
-		return s.db.GetContext(ctx, &task, findTaskIDByDescription, description)
-	})
-	taskID := task.ID
-	if task.TaskStatusCode == "not_scoped" {
-		task.TaskStatusCode = "scoped"
-		task.EndedAt = time.Time{}
-		_, err = s.db.Query(updateTaskStatus, task.TaskStatusCode, task.EndedAt, task.ID)
-		if err != nil {
-			return err
-		}
-	}
-	fmt.Println("user insert")
 	s.db.Query(userTaskInsert, userID, taskID)
 	if err != nil {
 		return err

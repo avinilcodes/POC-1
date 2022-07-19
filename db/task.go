@@ -2,22 +2,24 @@ package db
 
 import (
 	"context"
+	"fmt"
 	"time"
 )
 
 const (
-	findTaskIDByDescription = "SELECT id,description,task_status_code,started_at,ended_at FROM TASKS WHERE description=$1"
-	insertTask              = `INSERT INTO tasks (id,description,task_status_code,started_at,ended_at) VALUES ($1,$2,$3,$4,$5)`
-	findAllTasks            = "select * from tasks"
-	updateTaskStatus        = `update tasks set task_status_code=$1,ended_at=$2 where id =$3`
-	findUserFromTaskId      = `select * from users where id = (select user_id from users_tasks where task_id = $1)`
-	findTasksByUserId       = `select * from tasks where id in (select task_id from users_tasks where user_id= $1)`
+	findTaskByDescription = "SELECT id,description,task_status_code,started_at,ended_at FROM TASKS WHERE description=$1"
+	findTaskByTaskId      = "SELECT id,description,task_status_code,started_at,ended_at FROM TASKS WHERE id=$1"
+	insertTask            = `INSERT INTO tasks (id,description,task_status_code,started_at,ended_at) VALUES ($1,$2,$3,$4,$5)`
+	findAllTasks          = "select * from tasks"
+	updateTaskStatus      = `update tasks set task_status_code=$1,ended_at=$2 where id =$3`
+	findUserFromTaskId    = `select * from users where id = (select user_id from users_tasks where task_id = $1)`
+	findTasksByUserId     = `select * from tasks where id in (select task_id from users_tasks where user_id= $1)`
 )
 
 type Task struct {
 	ID             string    `json:"id" db:"id"`
 	Description    string    `json:"description" db:"description"`
-	TaskStatusCode string    `json:"taskstatuscode" db:"task_status_code"`
+	TaskStatusCode string    `json:"task_status_code" db:"task_status_code"`
 	StartedAt      time.Time `json:"started_at" db:"started_at"`
 	EndedAt        time.Time `json:"ended_at" db:"ended_at"`
 }
@@ -26,7 +28,7 @@ func (s *store) CreateTask(ctx context.Context, task Task) (err error) {
 	if task.Description == "" {
 		return ErrCannotAddEmptyTask
 	}
-	res, err := s.db.Exec(findTaskIDByDescription, task.Description)
+	res, err := s.db.Exec(findTaskByDescription, task.Description)
 	if err != nil {
 		return
 	}
@@ -42,10 +44,10 @@ func (s *store) CreateTask(ctx context.Context, task Task) (err error) {
 
 }
 
-func (s *store) UpdateTaskStatus(ctx context.Context, description string, status string, userEmail string) (err error) {
+func (s *store) UpdateTaskStatus(ctx context.Context, id string, status string, userEmail string) (err error) {
 	var task Task
 	err = WithDefaultTimeout(ctx, func(ctx context.Context) error {
-		return s.db.GetContext(ctx, &task, findTaskIDByDescription, description)
+		return s.db.GetContext(ctx, &task, findTaskByTaskId, id)
 	})
 	if err != nil {
 		return err
@@ -64,6 +66,7 @@ func (s *store) UpdateTaskStatus(ctx context.Context, description string, status
 	if err != nil {
 		return
 	}
+	fmt.Println("c user successful")
 	if status != "mr_approved" && currentUser.RoleType == "admin" {
 		return ErrTaskAssignedToAnotherUser
 	}

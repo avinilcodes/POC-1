@@ -32,9 +32,9 @@ func initRouter(dep dependencies) (router *mux.Router) {
 	router.HandleFunc("/tasks", task.ListTaskHandler(dep.TaskService)).Methods(http.MethodGet)
 
 	//Assign Task
-	router.HandleFunc("/task/assign", middleware.AuthorizationMiddleware(task.AssignTaskHandler(dep.TaskService), "admin")).Methods(http.MethodPost)
+	router.HandleFunc("/task/{task_id}/user/{user_id}", middleware.AuthorizationMiddleware(task.AssignTaskHandler(dep.TaskService), "admin")).Methods(http.MethodPost)
 
 	//Update task status
-	router.HandleFunc("/task", task.UpdateTaskStatusHandler(dep.TaskService)).Methods(http.MethodPut)
+	router.HandleFunc("/task/{id}", task.UpdateTaskStatusHandler(dep.TaskService)).Methods(http.MethodPut)
 	return
 }

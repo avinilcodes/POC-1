@@ -9,6 +9,8 @@ import (
 	"taskmanager/db"
 	"taskmanager/utils"
 	"time"
+
+	"github.com/gorilla/mux"
 )
 
 func AddTaskHandler(service Service) http.HandlerFunc {
@@ -48,16 +50,21 @@ func AddTaskHandler(service Service) http.HandlerFunc {
 
 func AssignTaskHandler(service Service) http.HandlerFunc {
 	return http.HandlerFunc(func(rw http.ResponseWriter, req *http.Request) {
-		var atr AssignTaskRequest
-		err := json.NewDecoder(req.Body).Decode(&atr)
-		if err != nil {
-			api.Error(rw, http.StatusBadRequest, api.Response{Message: err.Error()})
+		vars := mux.Vars(req)
+		userId, ok := vars["user_id"]
+		if !ok {
+			api.Error(rw, http.StatusBadRequest, api.Response{Message: "user id missing"})
+			return
+		}
+		taskId, ok := vars["task_id"]
+		if !ok {
+			api.Error(rw, http.StatusBadRequest, api.Response{Message: "task id missing"})
 			return
 		}
 		var assignTaskRequest AssignTaskRequest
-		assignTaskRequest.Description = atr.Description
-		assignTaskRequest.Email = atr.Email
-		err = service.assignTask(req.Context(), assignTaskRequest)
+		assignTaskRequest.UserId = userId
+		assignTaskRequest.TaskId = taskId
+		err := service.assignTask(req.Context(), assignTaskRequest)
 		if err != nil {
 			app.GetLogger().Warn("error creating task", err.Error())
 			rw.WriteHeader(http.StatusInternalServerError)
@@ -92,16 +99,23 @@ func ListTaskHandler(service Service) http.HandlerFunc {
 
 func UpdateTaskStatusHandler(service Service) http.HandlerFunc {
 	return http.HandlerFunc(func(rw http.ResponseWriter, req *http.Request) {
+		vars := mux.Vars(req)
+		taskId, ok := vars["id"]
+		if !ok {
+			api.Error(rw, http.StatusBadRequest, api.Response{Message: "task id missing"})
+			return
+		}
+		reqToken := req.Header.Get("Authorization")
+		splitToken := strings.Split(reqToken, "Bearer ")
+		reqToken = splitToken[1]
 		var utr UpdateTaskRequest
 		err := json.NewDecoder(req.Body).Decode(&utr)
 		if err != nil {
 			api.Error(rw, http.StatusBadRequest, api.Response{Message: err.Error()})
 			return
 		}
-		reqToken := req.Header.Get("Authorization")
-		splitToken := strings.Split(reqToken, "Bearer ")
-		reqToken = splitToken[1]
-		err = service.updateTaskStatus(req.Context(), utr.Description, utr.Status, reqToken)
+		utr.Id = taskId
+		err = service.updateTaskStatus(req.Context(), utr.Id, utr.Status, reqToken)
 		if err != nil {
 			if err.Error() == "Task status invalid" {
 				rw.WriteHeader(http.StatusBadRequest)
