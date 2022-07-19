@@ -19,7 +19,7 @@ const (
 	updateUserQuery      = "UPDATE users SET name=$1 ,password=$2,updated_at=$3 where id=$4"
 	userInsert           = `INSERT INTO users (id,name,email,password,role_type,created_at,updated_at) VALUES ($1,$2,$3,$4,$5,$6,$7)`
 	//Super User details
-	superAdminEmail    = "superadmin@company.com"
+	superAdminEmail    = "superadmin@Joshsoftware.com"
 	superAdminPassword = "Josh@123"
 	superAdminName     = "Josh"
 	superAdminRoleType = "super_admin"
