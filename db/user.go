@@ -2,7 +2,6 @@ package db
 
 import (
 	"context"
-	"database/sql"
 	"taskmanager/utils"
 	"time"
 
@@ -39,20 +38,6 @@ type User struct {
 func HashPassword(password string) (string, error) {
 	bytes, err := bcrypt.GenerateFromPassword([]byte(password), 14)
 	return string(bytes), err
-}
-
-func (s *store) UpdateUser(ctx context.Context, user *User) (err error) {
-	now := time.Now()
-	return Transact(ctx, s.db, &sql.TxOptions{}, func(ctx context.Context) error {
-		_, err = s.db.Exec(
-			updateUserQuery,
-			user.Name,
-			user.Password,
-			now,
-			user.ID,
-		)
-		return err
-	})
 }
 
 func (s *store) FindUserByEmail(ctx context.Context, email string) (user User, err error) {
