@@ -2,6 +2,8 @@ package db
 
 import (
 	"context"
+	"fmt"
+	"time"
 )
 
 const (
@@ -31,12 +33,13 @@ func (s *store) AssignTask(ctx context.Context, description string, userEmail st
 	taskID := task.ID
 	if task.TaskStatusCode == "not_scoped" {
 		task.TaskStatusCode = "scoped"
-		_, err = s.db.Query(updateTaskStatus, task.TaskStatusCode, task.ID)
+		task.EndedAt = time.Time{}
+		_, err = s.db.Query(updateTaskStatus, task.TaskStatusCode, task.EndedAt, task.ID)
 		if err != nil {
 			return err
 		}
 	}
-
+	fmt.Println("user insert")
 	s.db.Query(userTaskInsert, userID, taskID)
 	if err != nil {
 		return err

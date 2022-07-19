@@ -9,7 +9,7 @@ const (
 	findTaskIDByDescription = "SELECT id,description,task_status_code,started_at,ended_at FROM TASKS WHERE description=$1"
 	insertTask              = `INSERT INTO tasks (id,description,task_status_code,started_at,ended_at) VALUES ($1,$2,$3,$4,$5)`
 	findAllTasks            = "select * from tasks"
-	updateTaskStatus        = `update tasks set task_status_code=$1 where id =$2`
+	updateTaskStatus        = `update tasks set task_status_code=$1,ended_at=$2 where id =$3`
 	findUserFromTaskId      = `select * from users where id = (select user_id from users_tasks where task_id = $1)`
 	findTasksByUserId       = `select * from tasks where id in (select task_id from users_tasks where user_id= $1)`
 )
@@ -47,21 +47,12 @@ func (s *store) UpdateTaskStatus(ctx context.Context, description string, status
 	if err != nil {
 		return err
 	}
-	if (task.TaskStatusCode == "in_progress" || task.TaskStatusCode == "scoped" || task.TaskStatusCode == "not_scoped") && status == "mr_approved" {
-		return ErrTaskStatusError
-	}
-	if task.TaskStatusCode == "not_scoped" && status == "in_progress" {
-		return ErrTaskStatusError
-	}
-	if (task.TaskStatusCode == "scoped" || task.TaskStatusCode == "not_scoped") && status == "code_review" {
-		return ErrTaskStatusError
-	}
 	var user User
 	err = WithDefaultTimeout(ctx, func(ctx context.Context) error {
 		return s.db.GetContext(ctx, &user, findUserFromTaskId, task.ID)
 	})
 	if err != nil {
-		return err
+		return
 	}
 	var currentUser User
 	err = WithDefaultTimeout(ctx, func(ctx context.Context) error {
@@ -70,25 +61,33 @@ func (s *store) UpdateTaskStatus(ctx context.Context, description string, status
 	if err != nil {
 		return
 	}
-	if user.Email != userEmail && currentUser.RoleType != "admin" {
+	if status != "mr_approved" && currentUser.RoleType == "admin" {
 		return ErrTaskAssignedToAnotherUser
+	}
+	if userEmail != user.Email && currentUser.RoleType != "admin" {
+		return ErrTaskAssignedToAnotherUser
+	}
+	if status == "mr_approved" && task.TaskStatusCode == "in_progress" {
+		return ErrTaskStatusError
 	}
 	if status == "mr_approved" && currentUser.RoleType != "admin" {
 		return ErrOnlyAdminAccess
+	}
+	if status == "code_review" && task.TaskStatusCode != "in_progress" {
+		return ErrTaskStatusError
 	}
 	flag := status != "in_progress" && status != "mr_approved" && status != "code_review"
 	if !flag {
 		if status == "mr_approved" {
 			task.EndedAt = time.Now()
 		}
-		_, err = s.db.Query(updateTaskStatus, status, task.ID)
+		_, err = s.db.Query(updateTaskStatus, status, task.EndedAt, task.ID)
 		if err != nil {
 			return err
 		}
 		return
 	}
 	return ErrTaskCannotBeUpdated
-
 }
 
 func (s *store) ListTasks(ctx context.Context, email string) (tasks []Task, err error) {
