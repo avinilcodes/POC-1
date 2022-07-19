@@ -18,7 +18,6 @@ const (
 
 type Storer interface {
 	FindUserByEmail(ctx context.Context, email string) (user User, err error)
-	UpdateUser(ctx context.Context, user *User) (err error)
 	ListUsers(ctx context.Context) (users []User, err error)
 	CreateUser(ctx context.Context, user User) (err error)
 	CreateTask(ctx context.Context, task Task) (err error)
