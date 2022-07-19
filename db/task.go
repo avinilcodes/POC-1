@@ -23,6 +23,9 @@ type Task struct {
 }
 
 func (s *store) CreateTask(ctx context.Context, task Task) (err error) {
+	if task.Description == "" {
+		return ErrCannotAddEmptyTask
+	}
 	res, err := s.db.Exec(findTaskIDByDescription, task.Description)
 	if err != nil {
 		return

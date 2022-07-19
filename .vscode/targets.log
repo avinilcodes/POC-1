@@ -8,7 +8,7 @@ make: *** No rule to make target 'all'.  Stop.
 # This is free software: you are free to change and redistribute it.
 # There is NO WARRANTY, to the extent permitted by law.
 
-# Make data base, printed on Tue Jul 19 05:50:37 2022
+# Make data base, printed on Tue Jul 19 14:47:57 2022
 
 # Variables
 
@@ -51,7 +51,7 @@ VTE_VERSION = 6003
 # environment
 VSCODE_NLS_CONFIG = {"locale":"en-gb","availableLanguages":{},"_languagePackSupport":true}
 # environment
-JOURNAL_STREAM = 8:50943
+JOURNAL_STREAM = 8:49936
 # environment
 XDG_CONFIG_DIRS = /etc/xdg/xdg-ubuntu:/etc/xdg
 # makefile (from 'Makefile', line 1)
@@ -67,7 +67,7 @@ XDG_DATA_DIRS = /usr/share/ubuntu:/usr/local/share/:/usr/share/:/var/lib/snapd/d
 # environment
 VSCODE_AMD_ENTRYPOINT = vs/workbench/api/node/extensionHostProcess
 # environment
-DBUS_SESSION_BUS_ADDRESS = unix:path=/run/user/1001/bus,guid=32fd9bd13fbb89d92d9063a962d5a5e8
+DBUS_SESSION_BUS_ADDRESS = unix:path=/run/user/1001/bus
 # environment
 VSCODE_VERBOSE_LOGGING = true
 # environment
@@ -99,7 +99,7 @@ VSCODE_LOG_STACK = false
 # environment
 ELECTRON_RUN_AS_NODE = 1
 # environment
-INVOCATION_ID = 21e5ebe9b67544dcae53be33fbf3e945
+INVOCATION_ID = ea93b439d2e6436da7eeaf0d7861d3bd
 # default
 .FEATURES := target-specific order-only second-expansion else-if shortest-stem undefine oneshell archives jobserver output-sync check-symlink load
 # environment
@@ -161,7 +161,7 @@ SHLVL = 1
 # environment
 GNOME_SHELL_SESSION_MODE = ubuntu
 # environment
-VSCODE_IPC_HOOK_EXTHOST = /run/user/1001/vscode-ipc-238f597c-68de-4f0a-9475-858f4d10b337.sock
+VSCODE_IPC_HOOK_EXTHOST = /run/user/1001/vscode-ipc-073d618a-fafc-4fd0-a3fe-0c999fa96821.sock
 # default
 MAKE_VERSION := 4.2.1
 # environment
@@ -203,20 +203,19 @@ MAKEFILES :=
 # makefile (from 'Makefile', line 3)
 DB_USER = postgres
 # environment
- 
 LC_ALL = C
-# environment
-DBUS_STARTER_BUS_TYPE = session
 # makefile (from 'Makefile', line 4)
 ALL_PACKAGES = $(shell go list ./... | grep -v "vendor")
 # environment
-GNOME_TERMINAL_SCREEN = /org/gnome/Terminal/screen/bf58cf9b_c253_42a4_af67_140f637a956e
+GJS_DEBUG_TOPICS = JS ERROR;JS LOG
+# environment
+GNOME_TERMINAL_SCREEN = /org/gnome/Terminal/screen/5a8e1019_c43d_47ce_b236_e8aa73947af6
 # automatic
 ^F = $(notdir $^)
 # makefile (from 'Makefile', line 2)
 DB_NAME = boilerplate_development
 # environment
-GNOME_TERMINAL_SERVICE = :1.91
+GNOME_TERMINAL_SERVICE = :1.138
 # default
 SUFFIXES := 
 # environment
@@ -227,6 +226,8 @@ WINDOWPATH = 2
 .INCLUDE_DIRS = /usr/include /usr/local/include /usr/include
 # makefile (from 'Makefile', line 5)
 APP_EXECUTABLE = "out/golang-boilerplate"
+# environment
+GJS_DEBUG_OUTPUT = stderr
 # default
 .RECIPEPREFIX := 
 # environment
@@ -234,9 +235,7 @@ LANG = C
 # environment
 TERM = xterm-256color
 # environment
-VSCODE_PID = 3989
-# environment
-DBUS_STARTER_ADDRESS = unix:path=/run/user/1001/bus,guid=32fd9bd13fbb89d92d9063a962d5a5e8
+VSCODE_PID = 58547
 # variable set hash-table stats:
 # Load=112/1024=11%, Rehash=0, Collisions=15/137=11%
 
@@ -334,7 +333,6 @@ vet:
 #  recipe to execute (from 'Makefile', line 22):
 	go vet $(ALL_PACKAGES)
 
- 
 copy-config:
 #  Implicit rule search has not been done.
 #  Modification time never checked.
@@ -376,6 +374,7 @@ fmt:
 	go fmt $(ALL_PACKAGES)
 
 lint:
+ 
 #  Implicit rule search has not been done.
 #  Modification time never checked.
 #  File has not been updated.
@@ -406,6 +405,6 @@ db.migrate: db.create_extension
 # strcache performance: lookups = 77 / hit rate = 41%
 # hash-table stats:
 # Load=45/8192=1%, Rehash=0, Collisions=1/77=1%
-# Finished Make data base on Tue Jul 19 05:50:37 2022
+# Finished Make data base on Tue Jul 19 14:47:57 2022
 
  

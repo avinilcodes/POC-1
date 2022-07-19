@@ -9,4 +9,5 @@ var (
 	ErrTaskStatusError           = errors.New("Task cannot be updated previous state/states pending")
 	ErrTaskAssignedToAnotherUser = errors.New("Task assignee is different")
 	ErrOnlyAdminAccess           = errors.New("Admin access only")
+	ErrCannotAddEmptyTask        = errors.New("Please add a valid description")
 )

@@ -32,6 +32,10 @@ func AddTaskHandler(service Service) http.HandlerFunc {
 				rw.WriteHeader(http.StatusBadRequest)
 				api.Error(rw, http.StatusBadRequest, api.Response{Message: "can not duplicate Task"})
 				return
+			} else if err.Error() == "Please add a valid description" {
+				rw.WriteHeader(http.StatusBadRequest)
+				api.Error(rw, http.StatusBadRequest, api.Response{Message: "Task description cannot be empty"})
+				return
 			} else {
 				app.GetLogger().Warn("Failed because", err)
 				rw.WriteHeader(http.StatusInternalServerError)
