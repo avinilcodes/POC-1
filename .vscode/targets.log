@@ -8,7 +8,7 @@ make: *** No rule to make target 'all'.  Stop.
 # This is free software: you are free to change and redistribute it.
 # There is NO WARRANTY, to the extent permitted by law.
 
-# Make data base, printed on Tue Jul 19 14:47:57 2022
+# Make data base, printed on Wed Jul 20 10:58:19 2022
 
 # Variables
 
@@ -73,6 +73,8 @@ VSCODE_VERBOSE_LOGGING = true
 # environment
 _ = /usr/bin/code
 # environment
+INFOPATH = /home/linuxbrew/.linuxbrew/share/info:
+# environment
 MANAGERPID = 2091
 # environment
 LESSOPEN = | /usr/bin/lesspipe %s
@@ -83,7 +85,7 @@ GOPROXY = https://proxy.golang.org,direct
 # default
 MAKE_HOST := x86_64-pc-linux-gnu
 # environment
-PATH = /home/avinil/.local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin:/usr/local/go/bin
+PATH = /home/linuxbrew/.linuxbrew/bin:/home/linuxbrew/.linuxbrew/sbin:/home/avinil/.local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin:/usr/local/go/bin
 # environment
 GPG_AGENT_INFO = /run/user/1001/gnupg/S.gpg-agent:0:1
 # environment
@@ -125,11 +127,13 @@ ORIGINAL_XDG_CURRENT_DESKTOP = ubuntu:GNOME
 # environment
 GTK_MODULES = gail:atk-bridge
 # environment
+MANPATH = /home/linuxbrew/.linuxbrew/share/man:
+# environment
 GOMODCACHE = /home/avinil/go/pkg/mod
 # environment
 HOME = /home/avinil
 # environment
-LESSCLOSE = /usr/bin/lesspipe %s %s
+HOMEBREW_CELLAR = /home/linuxbrew/.linuxbrew/Cellar
 # environment
 VSCODE_CLI = 1
 # environment
@@ -140,6 +144,8 @@ LOGNAME = avinil
 APPLICATION_INSIGHTS_NO_DIAGNOSTIC_CHANNEL = 1
 # environment
 ELECTRON_NO_ATTACH_CONSOLE = 1
+# environment
+LESSCLOSE = /usr/bin/lesspipe %s %s
 # environment
 VSCODE_HANDLES_UNCAUGHT_ERRORS = true
 # environment
@@ -161,7 +167,7 @@ SHLVL = 1
 # environment
 GNOME_SHELL_SESSION_MODE = ubuntu
 # environment
-VSCODE_IPC_HOOK_EXTHOST = /run/user/1001/vscode-ipc-073d618a-fafc-4fd0-a3fe-0c999fa96821.sock
+VSCODE_IPC_HOOK_EXTHOST = /run/user/1001/vscode-ipc-b4f88dfb-05e3-44b4-905e-b9d88ebac829.sock
 # default
 MAKE_VERSION := 4.2.1
 # environment
@@ -188,12 +194,16 @@ MAKEFLAGS = pqrR
 MFLAGS = -pqrR
 # automatic
 *D = $(patsubst %/,%,$(dir $*))
+# environment
+HOMEBREW_PREFIX = /home/linuxbrew/.linuxbrew
 # automatic
 +D = $(patsubst %/,%,$(dir $+))
 # environment
 GDK_BACKEND = x11
 # automatic
 +F = $(notdir $+)
+# environment
+HOMEBREW_REPOSITORY = /home/linuxbrew/.linuxbrew/Homebrew
 # environment
 QT_ACCESSIBILITY = 1
 # default
@@ -235,9 +245,9 @@ LANG = C
 # environment
 TERM = xterm-256color
 # environment
-VSCODE_PID = 58547
+VSCODE_PID = 84567
 # variable set hash-table stats:
-# Load=112/1024=11%, Rehash=0, Collisions=15/137=11%
+# Load=117/1024=11%, Rehash=0, Collisions=17/142=12%
 
 # Pattern-specific Variable Values
 
@@ -310,6 +320,7 @@ test-coverage:
 # Not a target:
 Makefile:
 #  Implicit rule search has been done.
+ 
 #  Last modified 2022-07-12 14:27:08.325792004
 #  File has been updated.
 #  Successfully updated.
@@ -374,7 +385,6 @@ fmt:
 	go fmt $(ALL_PACKAGES)
 
 lint:
- 
 #  Implicit rule search has not been done.
 #  Modification time never checked.
 #  File has not been updated.
@@ -405,6 +415,6 @@ db.migrate: db.create_extension
 # strcache performance: lookups = 77 / hit rate = 41%
 # hash-table stats:
 # Load=45/8192=1%, Rehash=0, Collisions=1/77=1%
-# Finished Make data base on Tue Jul 19 14:47:57 2022
+# Finished Make data base on Wed Jul 20 10:58:19 2022
 
  
