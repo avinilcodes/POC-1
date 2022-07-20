@@ -52,7 +52,7 @@ definitions:
     x-go-package: taskmanager/db
 info:
   description: Documentation for users API
-  title: of Users API
+  title: Task Manager APIs
   version: 1.0.0
 paths:
   /task:
