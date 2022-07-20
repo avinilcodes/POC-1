@@ -7,6 +7,7 @@ import (
 	"taskmanager/task"
 	"taskmanager/user"
 
+	runtimemid "github.com/go-openapi/runtime/middleware"
 	"github.com/gorilla/mux"
 )
 
@@ -36,5 +37,11 @@ func initRouter(dep dependencies) (router *mux.Router) {
 
 	//Update task status
 	router.HandleFunc("/task/{id}", task.UpdateTaskStatusHandler(dep.TaskService)).Methods(http.MethodPut)
+
+	ops := runtimemid.RedocOpts{SpecURL: "swagger.yaml"}
+	sh := runtimemid.Redoc(ops, nil)
+
+	router.Handle("/docs", sh)
+	router.Handle("/swagger.yaml", http.FileServer(http.Dir("./")))
 	return
 }

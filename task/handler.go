@@ -13,6 +13,17 @@ import (
 	"github.com/gorilla/mux"
 )
 
+// A list of users returns in the response
+// swagger:response tasksResponse
+type tasksResponse struct {
+	// All products in the database
+	// in: query
+	Body []db.Task
+}
+
+// swagger:route POST /task task addTask
+// responses:
+//  201: noContent
 func AddTaskHandler(service Service) http.HandlerFunc {
 	return http.HandlerFunc(func(rw http.ResponseWriter, req *http.Request) {
 		var atr AddTaskRequest
@@ -74,6 +85,10 @@ func AssignTaskHandler(service Service) http.HandlerFunc {
 	})
 }
 
+// swagger:route GET /tasks tasks listTasks
+// Returns list of tasks
+// responses:
+//  200: tasksResponse
 func ListTaskHandler(service Service) http.HandlerFunc {
 	return http.HandlerFunc(func(rw http.ResponseWriter, req *http.Request) {
 		reqToken := req.Header.Get("Authorization")

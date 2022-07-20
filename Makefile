@@ -58,3 +58,5 @@ test-coverage:
 	ENVIRONMENT=test go test -coverprofile=coverage.out -covermode=count $(pkg);\
 	tail -n +2 coverage.out >> coverage-all.out;)
 	go tool cover -html=coverage-all.out -o out/coverage.html
+swagger:
+	GO111MODULE=off swagger generate spec -o ./swagger.yaml --scan-models

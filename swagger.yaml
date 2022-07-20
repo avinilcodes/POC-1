@@ -1,0 +1,119 @@
+basePath: /
+consumes:
+- application/json
+definitions:
+  Task:
+    properties:
+      description:
+        type: string
+        x-go-name: Description
+      ended_at:
+        format: date-time
+        type: string
+        x-go-name: EndedAt
+      id:
+        type: string
+        x-go-name: ID
+      started_at:
+        format: date-time
+        type: string
+        x-go-name: StartedAt
+      task_status_code:
+        type: string
+        x-go-name: TaskStatusCode
+    type: object
+    x-go-package: taskmanager/db
+  User:
+    properties:
+      created_at:
+        format: date-time
+        type: string
+        x-go-name: CreatedAt
+      email:
+        type: string
+        x-go-name: Email
+      id:
+        type: string
+        x-go-name: ID
+      name:
+        type: string
+        x-go-name: Name
+      password:
+        type: string
+        x-go-name: Password
+      role_type:
+        type: string
+        x-go-name: RoleType
+      updated_at:
+        format: date-time
+        type: string
+        x-go-name: UpdatedAt
+    type: object
+    x-go-package: taskmanager/db
+info:
+  description: Documentation for users API
+  title: of Users API
+  version: 1.0.0
+paths:
+  /task:
+    post:
+      operationId: addTask
+      responses:
+        "201":
+          $ref: '#/responses/noContent'
+      tags:
+      - task
+  /tasks:
+    get:
+      description: Returns list of tasks
+      operationId: listTasks
+      responses:
+        "200":
+          $ref: '#/responses/tasksResponse'
+      tags:
+      - tasks
+  /user:
+    post:
+      operationId: addUser
+      responses:
+        "201":
+          $ref: '#/responses/noContent'
+      tags:
+      - user
+  /users:
+    get:
+      description: Returns list of users
+      operationId: listUsers
+      responses:
+        "200":
+          $ref: '#/responses/usersResponse'
+      tags:
+      - users
+produces:
+- application/json
+responses:
+  noContent:
+    description: ""
+  tasksResponse:
+    description: A list of users returns in the response
+    headers:
+      Body:
+        description: |-
+          All products in the database
+          in: query
+        items:
+          $ref: '#/definitions/Task'
+        type: array
+  usersResponse:
+    description: A list of users returns in the response
+    headers:
+      Body:
+        description: |-
+          All products in the database
+          in: query
+        items:
+          $ref: '#/definitions/User'
+        type: array
+schemes:
+- http
+swagger: "2.0"

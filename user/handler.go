@@ -1,3 +1,17 @@
+// Package classification of Users API
+//
+// Documentation for users API
+//
+// schemes: http
+// BasePath: /
+// Version: 1.0.0
+//
+// Consumes:
+// -application/json
+//
+// Produces:
+// -application/json
+// swagger:meta
 package user
 
 import (
@@ -10,6 +24,21 @@ import (
 	"time"
 )
 
+// A list of users returns in the response
+// swagger:response usersResponse
+type usersResponse struct {
+	// All products in the database
+	// in: query
+	Body []db.User
+}
+
+// swagger:response noContent
+type UserAdd struct{}
+
+// swagger:route GET /users users listUsers
+// Returns list of users
+// responses:
+//  200: usersResponse
 func ListUserHandler(service Service) http.HandlerFunc {
 	return http.HandlerFunc(func(rw http.ResponseWriter, req *http.Request) {
 		users, err := service.listUsers(req.Context())
@@ -31,6 +60,9 @@ func ListUserHandler(service Service) http.HandlerFunc {
 	})
 }
 
+// swagger:route POST /user user addUser
+// responses:
+//  201: noContent
 func AddUserHandler(service Service) http.HandlerFunc {
 	return http.HandlerFunc(func(rw http.ResponseWriter, req *http.Request) {
 		var aur AddUserRequest
