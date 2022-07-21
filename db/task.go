@@ -2,7 +2,6 @@ package db
 
 import (
 	"context"
-	"fmt"
 	"time"
 )
 
@@ -66,7 +65,9 @@ func (s *store) UpdateTaskStatus(ctx context.Context, id string, status string, 
 	if err != nil {
 		return
 	}
-	fmt.Println("c user successful")
+	if status != "in_progress" && status != "mr_approved" && status != "code_review" {
+		return ErrTaskCannotBeUpdated
+	}
 	if status != "mr_approved" && currentUser.RoleType == "admin" {
 		return ErrTaskAssignedToAnotherUser
 	}
@@ -74,6 +75,9 @@ func (s *store) UpdateTaskStatus(ctx context.Context, id string, status string, 
 		return ErrTaskAssignedToAnotherUser
 	}
 	if status == "mr_approved" && task.TaskStatusCode == "in_progress" {
+		return ErrTaskStatusError
+	}
+	if status == "mr_approved" && task.TaskStatusCode != "code_review" {
 		return ErrTaskStatusError
 	}
 	if status == "mr_approved" && currentUser.RoleType != "admin" {
