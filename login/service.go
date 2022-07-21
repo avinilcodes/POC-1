@@ -3,6 +3,7 @@ package login
 import (
 	"context"
 	"errors"
+	"strings"
 	"taskmanager/config"
 	"taskmanager/db"
 	"time"
@@ -22,6 +23,7 @@ type loginService struct {
 }
 
 func (ls *loginService) login(ctx context.Context, ul loginRequest) (tokenString string, err error) {
+	ul.Email = strings.ToLower(ul.Email)
 	user, err := ls.store.FindUserByEmail(ctx, ul.Email)
 	// TODO: Handle the err
 	if err == db.ErrUserNotExist {

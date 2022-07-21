@@ -2,6 +2,7 @@ package db
 
 import (
 	"context"
+	"strings"
 	"taskmanager/utils"
 	"time"
 
@@ -19,7 +20,7 @@ const (
 	updateUserQuery      = "UPDATE users SET name=$1 ,password=$2,updated_at=$3 where id=$4"
 	userInsert           = `INSERT INTO users (id,name,email,password,role_type,created_at,updated_at) VALUES ($1,$2,$3,$4,$5,$6,$7)`
 	//Super User details
-	superAdminEmail    = "superadmin@Joshsoftware.com"
+	superAdminEmail    = "superadmin@joshsoftware.com"
 	superAdminPassword = "Josh@123"
 	superAdminName     = "Josh"
 	superAdminRoleType = "super_admin"
@@ -87,6 +88,7 @@ func (s *store) CreateUser(ctx context.Context, user User) (err error) {
 	if err != nil {
 		return
 	}
+	user.Email = strings.ToLower(user.Email)
 	_, err = s.db.Query(userInsert, user.ID, user.Name, user.Email, password, user.RoleType, user.CreatedAt, user.UpdatedAt)
 	if err != nil {
 		return err
