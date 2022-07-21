@@ -2,17 +2,19 @@ package db
 
 import (
 	"context"
+	"strings"
 	"time"
 )
 
 const (
-	findTaskByDescription = "SELECT id,description,task_status_code,started_at,ended_at FROM TASKS WHERE description=$1"
-	findTaskByTaskId      = "SELECT id,description,task_status_code,started_at,ended_at FROM TASKS WHERE id=$1"
-	insertTask            = `INSERT INTO tasks (id,description,task_status_code,started_at,ended_at) VALUES ($1,$2,$3,$4,$5)`
-	findAllTasks          = "select * from tasks"
-	updateTaskStatus      = `update tasks set task_status_code=$1,ended_at=$2 where id =$3`
-	findUserFromTaskId    = `select * from users where id = (select user_id from users_tasks where task_id = $1)`
-	findTasksByUserId     = `select * from tasks where id in (select task_id from users_tasks where user_id= $1)`
+	findTaskByDescription   = "SELECT id,description,task_status_code,started_at,ended_at FROM TASKS WHERE description=$1"
+	findTaskByTaskId        = "SELECT id,description,task_status_code,started_at,ended_at FROM TASKS WHERE id=$1"
+	insertTask              = `INSERT INTO tasks (id,description,task_status_code,started_at,ended_at) VALUES ($1,$2,$3,$4,$5)`
+	findAllTasks            = "select * from tasks"
+	findAllUserNameTaskName = "select u.email,t.description from users_tasks ut Inner join users u on u.id = ut.user_id Inner join tasks t on t.id = ut.task_id"
+	updateTaskStatus        = `update tasks set task_status_code=$1,ended_at=$2 where id =$3`
+	findUserFromTaskId      = `select * from users where id = (select user_id from users_tasks where task_id = $1)`
+	findTasksByUserId       = `select * from tasks where id in (select task_id from users_tasks where user_id= $1)`
 )
 
 type Task struct {
@@ -27,6 +29,7 @@ func (s *store) CreateTask(ctx context.Context, task Task) (err error) {
 	if task.Description == "" {
 		return ErrCannotAddEmptyTask
 	}
+	task.Description = strings.ToLower(task.Description)
 	res, err := s.db.Exec(findTaskByDescription, task.Description)
 	if err != nil {
 		return
@@ -40,7 +43,6 @@ func (s *store) CreateTask(ctx context.Context, task Task) (err error) {
 		return
 	}
 	return ErrTaskAlreadyExist
-
 }
 
 func (s *store) UpdateTaskStatus(ctx context.Context, id string, status string, userEmail string) (err error) {
@@ -68,10 +70,7 @@ func (s *store) UpdateTaskStatus(ctx context.Context, id string, status string, 
 	if status != "in_progress" && status != "mr_approved" && status != "code_review" {
 		return ErrTaskCannotBeUpdated
 	}
-	if status != "mr_approved" && currentUser.RoleType == "admin" {
-		return ErrTaskAssignedToAnotherUser
-	}
-	if userEmail != user.Email && currentUser.RoleType != "admin" {
+	if userEmail != user.Email && currentUser.RoleType != "admin" && currentUser.RoleType != "super_admin" {
 		return ErrTaskAssignedToAnotherUser
 	}
 	if status == "mr_approved" && task.TaskStatusCode == "in_progress" {
@@ -120,5 +119,12 @@ func (s *store) ListTasks(ctx context.Context, email string) (tasks []Task, err 
 			return s.db.SelectContext(ctx, &tasks, findTasksByUserId, currentUser.ID)
 		})
 	}
+	return
+}
+
+func (s *store) ListUserTask(ctx context.Context) (usertask []NameUserTask, err error) {
+	err = WithDefaultTimeout(ctx, func(ctx context.Context) error {
+		return s.db.SelectContext(ctx, &usertask, findAllUserNameTaskName)
+	})
 	return
 }

@@ -14,6 +14,7 @@ type Service interface {
 	assignTask(ctx context.Context, assignTaskRequest AssignTaskRequest) (err error)
 	listTasks(ctx context.Context, token string) (tasks []db.Task, err error)
 	updateTaskStatus(ctx context.Context, id string, status string, token string) (err error)
+	listUserTask(ctx context.Context) (usertask []db.NameUserTask, err error)
 }
 
 type taskService struct {
@@ -21,7 +22,7 @@ type taskService struct {
 	logger *zap.SugaredLogger
 }
 
-func returnUserEmail(token string) string {
+func ReturnUserEmail(token string) string {
 	tokenString := token
 	claims := jwt.MapClaims{}
 	_, err := jwt.ParseWithClaims(tokenString, claims, func(token *jwt.Token) (interface{}, error) {
@@ -57,7 +58,7 @@ func (ts *taskService) assignTask(ctx context.Context, assignTaskRequest AssignT
 	return
 }
 func (ts *taskService) listTasks(ctx context.Context, token string) (tasks []db.Task, err error) {
-	email := returnUserEmail(token)
+	email := ReturnUserEmail(token)
 	tasks, err = ts.store.ListTasks(ctx, email)
 	if err != nil {
 		app.GetLogger().Warn("Error while fetching tasks", err.Error())
@@ -66,8 +67,17 @@ func (ts *taskService) listTasks(ctx context.Context, token string) (tasks []db.
 	return
 }
 
+func (ts *taskService) listUserTask(ctx context.Context) (usertask []db.NameUserTask, err error) {
+	usertask, err = ts.store.ListUserTask(ctx)
+	if err != nil {
+		app.GetLogger().Warn("Error while fetching tasks", err.Error())
+		return
+	}
+	return
+}
+
 func (ts *taskService) updateTaskStatus(ctx context.Context, id string, status string, token string) (err error) {
-	email := returnUserEmail(token)
+	email := ReturnUserEmail(token)
 	err = ts.store.UpdateTaskStatus(ctx, id, status, email)
 	if err != nil {
 		app.GetLogger().Warn("Error while updating task", err.Error())

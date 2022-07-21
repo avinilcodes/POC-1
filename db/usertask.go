@@ -15,6 +15,11 @@ type UserTask struct {
 	TaskID string `json:"task_id" db:"task_id"`
 }
 
+type NameUserTask struct {
+	UserEmail       string `json:"email" db:"email"`
+	TaskDescription string `json:"description" db:"description"`
+}
+
 //need to add more, only 2 tasks can be assigned to a user , 1 task can be assigned to 2 users
 func (s *store) AssignTask(ctx context.Context, userID string, taskID string) (err error) {
 	_, err = s.db.Query(updateTaskStatus, "scoped", time.Time{}, taskID)

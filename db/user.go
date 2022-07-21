@@ -16,9 +16,11 @@ const (
 	`
 	findUserByEmailQuery = `SELECT id, name, email, password, role_type, created_at,updated_at FROM users WHERE email = $1`
 	findAllQuery         = `SELECT * FROM users`
-	deleteUserByIDQuery  = `DELETE FROM users WHERE id = $1`
-	updateUserQuery      = "UPDATE users SET name=$1 ,password=$2,updated_at=$3 where id=$4"
-	userInsert           = `INSERT INTO users (id,name,email,password,role_type,created_at,updated_at) VALUES ($1,$2,$3,$4,$5,$6,$7)`
+	findAllQueryForAdmin = `SELECT * FROM users where email != 'superadmin@joshsoftware.com'`
+
+	deleteUserByIDQuery = `DELETE FROM users WHERE id = $1`
+	updateUserQuery     = "UPDATE users SET name=$1 ,password=$2,updated_at=$3 where id=$4"
+	userInsert          = `INSERT INTO users (id,name,email,password,role_type,created_at,updated_at) VALUES ($1,$2,$3,$4,$5,$6,$7)`
 	//Super User details
 	superAdminEmail    = "superadmin@joshsoftware.com"
 	superAdminPassword = "Josh@123"
@@ -76,10 +78,23 @@ func CreateSuperAdmin(s *store) (err error) {
 	return
 }
 
-func (s *store) ListUsers(ctx context.Context) (users []User, err error) {
+func (s *store) ListUsers(ctx context.Context, email string) (users []User, err error) {
+	var currentUser User
 	err = WithDefaultTimeout(ctx, func(ctx context.Context) error {
-		return s.db.SelectContext(ctx, &users, findAllQuery)
+		return s.db.GetContext(ctx, &currentUser, findUserByEmailQuery, email)
 	})
+	if err != nil {
+		return
+	}
+	if currentUser.RoleType == "super_admin" {
+		err = WithDefaultTimeout(ctx, func(ctx context.Context) error {
+			return s.db.SelectContext(ctx, &users, findAllQuery)
+		})
+	} else if currentUser.RoleType == "admin" {
+		err = WithDefaultTimeout(ctx, func(ctx context.Context) error {
+			return s.db.SelectContext(ctx, &users, findAllQueryForAdmin)
+		})
+	}
 	return
 }
 

@@ -112,6 +112,25 @@ func ListTaskHandler(service Service) http.HandlerFunc {
 	})
 }
 
+func ListUserTaskHandler(service Service) http.HandlerFunc {
+	return http.HandlerFunc(func(rw http.ResponseWriter, req *http.Request) {
+		tasks, err := service.listUserTask(req.Context())
+		if err != nil {
+			app.GetLogger().Warn("error fetching tasks", err.Error())
+			rw.WriteHeader(http.StatusInternalServerError)
+			return
+		}
+		respBytes, err := json.Marshal(tasks)
+		if err != nil {
+			app.GetLogger().Warn("error while marshilling users")
+			rw.WriteHeader(http.StatusInternalServerError)
+			return
+		}
+
+		rw.Header().Add("Content-Type", "application/json")
+		rw.Write(respBytes)
+	})
+}
 func UpdateTaskStatusHandler(service Service) http.HandlerFunc {
 	return http.HandlerFunc(func(rw http.ResponseWriter, req *http.Request) {
 		vars := mux.Vars(req)

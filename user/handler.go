@@ -17,6 +17,7 @@ package user
 import (
 	"encoding/json"
 	"net/http"
+	"strings"
 	"taskmanager/api"
 	"taskmanager/app"
 	"taskmanager/db"
@@ -41,7 +42,10 @@ type UserAdd struct{}
 //  200: usersResponse
 func ListUserHandler(service Service) http.HandlerFunc {
 	return http.HandlerFunc(func(rw http.ResponseWriter, req *http.Request) {
-		users, err := service.listUsers(req.Context())
+		reqToken := req.Header.Get("Authorization")
+		splitToken := strings.Split(reqToken, "Bearer ")
+		reqToken = splitToken[1]
+		users, err := service.listUsers(req.Context(), reqToken)
 		if err != nil {
 			app.GetLogger().Warn("error fetching users")
 			rw.WriteHeader(http.StatusInternalServerError)

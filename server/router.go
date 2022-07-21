@@ -38,6 +38,9 @@ func initRouter(dep dependencies) (router *mux.Router) {
 	//Update task status
 	router.HandleFunc("/task/{id}", task.UpdateTaskStatusHandler(dep.TaskService)).Methods(http.MethodPut)
 
+	//List tasks assigned to user user->task
+	router.HandleFunc("/usertask", middleware.AuthorizationMiddleware(task.ListUserTaskHandler(dep.TaskService), "admin,super_admin")).Methods(http.MethodGet)
+
 	ops := runtimemid.RedocOpts{SpecURL: "swagger.yaml"}
 	sh := runtimemid.Redoc(ops, nil)
 

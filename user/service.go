@@ -4,12 +4,13 @@ import (
 	"context"
 	"taskmanager/app"
 	"taskmanager/db"
+	"taskmanager/task"
 
 	"go.uber.org/zap"
 )
 
 type Service interface {
-	listUsers(ctx context.Context) (users []db.User, err error)
+	listUsers(ctx context.Context, token string) (users []db.User, err error)
 	addUser(ctx context.Context, user db.User) (err error)
 }
 
@@ -18,8 +19,9 @@ type userService struct {
 	logger *zap.SugaredLogger
 }
 
-func (cs *userService) listUsers(ctx context.Context) (users []db.User, err error) {
-	users, err = cs.store.ListUsers(ctx)
+func (cs *userService) listUsers(ctx context.Context, token string) (users []db.User, err error) {
+	email := task.ReturnUserEmail(token)
+	users, err = cs.store.ListUsers(ctx, email)
 	if err != nil {
 		app.GetLogger().Warn(err.Error())
 		return
