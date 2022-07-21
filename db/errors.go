@@ -10,4 +10,5 @@ var (
 	ErrTaskAssignedToAnotherUser = errors.New("Task assignee is different")
 	ErrOnlyAdminAccess           = errors.New("Admin access only")
 	ErrCannotAddEmptyTask        = errors.New("Please add a valid description")
+	ErrTaskIsCompleted           = errors.New("Task is completed")
 )

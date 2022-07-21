@@ -148,6 +148,10 @@ func UpdateTaskStatusHandler(service Service) http.HandlerFunc {
 				rw.WriteHeader(http.StatusBadRequest)
 				api.Error(rw, http.StatusBadRequest, api.Response{Message: "Task Status cannot be updated ask admin to change the status"})
 				return
+			} else if err.Error() == "Task is completed" {
+				rw.WriteHeader(http.StatusBadRequest)
+				api.Error(rw, http.StatusBadRequest, api.Response{Message: "Task is completed not able to update"})
+				return
 			} else {
 				app.GetLogger().Warn("Failed because", err)
 				rw.WriteHeader(http.StatusInternalServerError)

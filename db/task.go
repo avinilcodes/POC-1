@@ -77,6 +77,9 @@ func (s *store) UpdateTaskStatus(ctx context.Context, id string, status string, 
 	if status == "mr_approved" && task.TaskStatusCode == "in_progress" {
 		return ErrTaskStatusError
 	}
+	if status == "mr_approved" && task.TaskStatusCode == "mr_approved" {
+		return ErrTaskIsCompleted
+	}
 	if status == "mr_approved" && task.TaskStatusCode != "code_review" {
 		return ErrTaskStatusError
 	}
