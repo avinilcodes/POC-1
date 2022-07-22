@@ -8,7 +8,7 @@ make: *** No rule to make target 'all'.  Stop.
 # This is free software: you are free to change and redistribute it.
 # There is NO WARRANTY, to the extent permitted by law.
 
-# Make data base, printed on Wed Jul 20 10:58:19 2022
+# Make data base, printed on Fri Jul 22 10:39:05 2022
 
 # Variables
 
@@ -51,7 +51,7 @@ VTE_VERSION = 6003
 # environment
 VSCODE_NLS_CONFIG = {"locale":"en-gb","availableLanguages":{},"_languagePackSupport":true}
 # environment
-JOURNAL_STREAM = 8:49936
+JOURNAL_STREAM = 8:57434
 # environment
 XDG_CONFIG_DIRS = /etc/xdg/xdg-ubuntu:/etc/xdg
 # makefile (from 'Makefile', line 1)
@@ -73,9 +73,7 @@ VSCODE_VERBOSE_LOGGING = true
 # environment
 _ = /usr/bin/code
 # environment
-INFOPATH = /home/linuxbrew/.linuxbrew/share/info:
-# environment
-MANAGERPID = 2091
+MANAGERPID = 2499
 # environment
 LESSOPEN = | /usr/bin/lesspipe %s
 # environment
@@ -85,11 +83,11 @@ GOPROXY = https://proxy.golang.org,direct
 # default
 MAKE_HOST := x86_64-pc-linux-gnu
 # environment
-PATH = /home/linuxbrew/.linuxbrew/bin:/home/linuxbrew/.linuxbrew/sbin:/home/avinil/.local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin:/usr/local/go/bin
+PATH = ~/go/bin:~/go/bin:~/go/bin:/home/avinil/.local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin:/usr/local/go/bin
 # environment
 GPG_AGENT_INFO = /run/user/1001/gnupg/S.gpg-agent:0:1
 # environment
-SESSION_MANAGER = local/avinil-Latitude-3420:@/tmp/.ICE-unix/2308,unix/avinil-Latitude-3420:/tmp/.ICE-unix/2308
+SESSION_MANAGER = local/avinil-Latitude-3420:@/tmp/.ICE-unix/2721,unix/avinil-Latitude-3420:/tmp/.ICE-unix/2721
 # environment
 XDG_RUNTIME_DIR = /run/user/1001
 # environment
@@ -101,7 +99,7 @@ VSCODE_LOG_STACK = false
 # environment
 ELECTRON_RUN_AS_NODE = 1
 # environment
-INVOCATION_ID = ea93b439d2e6436da7eeaf0d7861d3bd
+INVOCATION_ID = d2acb2e5f3464db29bf2c4fd3e8cce5e
 # default
 .FEATURES := target-specific order-only second-expansion else-if shortest-stem undefine oneshell archives jobserver output-sync check-symlink load
 # environment
@@ -121,19 +119,17 @@ PWD = /home/avinil/GoProjects/myProjects/POC1
 # default
 .LOADED := 
 # environment
-SSH_AGENT_PID = 2270
+SSH_AGENT_PID = 2682
 # environment
 ORIGINAL_XDG_CURRENT_DESKTOP = ubuntu:GNOME
 # environment
 GTK_MODULES = gail:atk-bridge
 # environment
-MANPATH = /home/linuxbrew/.linuxbrew/share/man:
-# environment
 GOMODCACHE = /home/avinil/go/pkg/mod
 # environment
 HOME = /home/avinil
 # environment
-HOMEBREW_CELLAR = /home/linuxbrew/.linuxbrew/Cellar
+LESSCLOSE = /usr/bin/lesspipe %s %s
 # environment
 VSCODE_CLI = 1
 # environment
@@ -144,8 +140,6 @@ LOGNAME = avinil
 APPLICATION_INSIGHTS_NO_DIAGNOSTIC_CHANNEL = 1
 # environment
 ELECTRON_NO_ATTACH_CONSOLE = 1
-# environment
-LESSCLOSE = /usr/bin/lesspipe %s %s
 # environment
 VSCODE_HANDLES_UNCAUGHT_ERRORS = true
 # environment
@@ -167,7 +161,7 @@ SHLVL = 1
 # environment
 GNOME_SHELL_SESSION_MODE = ubuntu
 # environment
-VSCODE_IPC_HOOK_EXTHOST = /run/user/1001/vscode-ipc-b4f88dfb-05e3-44b4-905e-b9d88ebac829.sock
+VSCODE_IPC_HOOK_EXTHOST = /run/user/1001/vscode-ipc-3bb05100-9b25-4ff3-a763-331f04d4a2f5.sock
 # default
 MAKE_VERSION := 4.2.1
 # environment
@@ -180,6 +174,8 @@ XDG_CURRENT_DESKTOP = Unity
 %D = $(patsubst %/,%,$(dir $%))
 # default
 MAKE_COMMAND := make
+# environment
+OLDPWD = /home/avinil
 # default
 .VARIABLES := 
 # automatic
@@ -194,16 +190,12 @@ MAKEFLAGS = pqrR
 MFLAGS = -pqrR
 # automatic
 *D = $(patsubst %/,%,$(dir $*))
-# environment
-HOMEBREW_PREFIX = /home/linuxbrew/.linuxbrew
 # automatic
 +D = $(patsubst %/,%,$(dir $+))
 # environment
 GDK_BACKEND = x11
 # automatic
 +F = $(notdir $+)
-# environment
-HOMEBREW_REPOSITORY = /home/linuxbrew/.linuxbrew/Homebrew
 # environment
 QT_ACCESSIBILITY = 1
 # default
@@ -219,13 +211,13 @@ ALL_PACKAGES = $(shell go list ./... | grep -v "vendor")
 # environment
 GJS_DEBUG_TOPICS = JS ERROR;JS LOG
 # environment
-GNOME_TERMINAL_SCREEN = /org/gnome/Terminal/screen/5a8e1019_c43d_47ce_b236_e8aa73947af6
+GNOME_TERMINAL_SCREEN = /org/gnome/Terminal/screen/12366eb5_7189_462a_bb74_e35bcc96f57f
 # automatic
 ^F = $(notdir $^)
 # makefile (from 'Makefile', line 2)
 DB_NAME = boilerplate_development
 # environment
-GNOME_TERMINAL_SERVICE = :1.138
+GNOME_TERMINAL_SERVICE = :1.117
 # default
 SUFFIXES := 
 # environment
@@ -245,9 +237,9 @@ LANG = C
 # environment
 TERM = xterm-256color
 # environment
-VSCODE_PID = 84567
+VSCODE_PID = 7687
 # variable set hash-table stats:
-# Load=117/1024=11%, Rehash=0, Collisions=17/142=12%
+# Load=113/1024=11%, Rehash=0, Collisions=15/138=11%
 
 # Pattern-specific Variable Values
 
@@ -255,9 +247,9 @@ VSCODE_PID = 84567
 
 # Directories
 
-# . (device 66307, inode 20447783): 24 files, no impossibilities.
+# . (device 66307, inode 20447783): 25 files, no impossibilities.
 
-# 24 files, no impossibilities in 1 directories.
+# 25 files, no impossibilities in 1 directories.
 
 # Implicit Rules
 
@@ -287,6 +279,7 @@ db.create:
 #  recipe to execute (from 'Makefile', line 39):
 	createdb -h $(DB_HOST) -U $(DB_USER) -O $(DB_USER) $(DB_NAME)
 
+ 
 build-deps:
 #  Implicit rule search has not been done.
 #  Modification time never checked.
@@ -320,8 +313,7 @@ test-coverage:
 # Not a target:
 Makefile:
 #  Implicit rule search has been done.
- 
-#  Last modified 2022-07-12 14:27:08.325792004
+#  Last modified 2022-07-20 18:28:05.437219976
 #  File has been updated.
 #  Successfully updated.
 
@@ -331,6 +323,13 @@ test:
 #  File has not been updated.
 #  recipe to execute (from 'Makefile', line 53):
 	go test -v ./...
+
+swagger:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+#  recipe to execute (from 'Makefile', line 62):
+	GO111MODULE=off swagger generate spec -o ./swagger.yaml --scan-models
 
 build: setup build-deps compile fmt vet lint
 #  Implicit rule search has not been done.
@@ -402,19 +401,19 @@ db.migrate: db.create_extension
 	$(APP_EXECUTABLE) migrate
 
 # files hash-table stats:
-# Load=20/1024=2%, Rehash=0, Collisions=0/45=0%
+# Load=21/1024=2%, Rehash=0, Collisions=0/46=0%
 # VPATH Search Paths
 
 # No 'vpath' search paths.
 
 # No general ('VPATH' variable) search path.
 
-# strcache buffers: 1 (0) / strings = 45 / storage = 374 B / avg = 8 B
-# current buf: size = 8162 B / used = 374 B / count = 45 / avg = 8 B
+# strcache buffers: 1 (0) / strings = 47 / storage = 395 B / avg = 8 B
+# current buf: size = 8162 B / used = 395 B / count = 47 / avg = 8 B
 
-# strcache performance: lookups = 77 / hit rate = 41%
+# strcache performance: lookups = 80 / hit rate = 41%
 # hash-table stats:
-# Load=45/8192=1%, Rehash=0, Collisions=1/77=1%
-# Finished Make data base on Wed Jul 20 10:58:19 2022
+# Load=47/8192=1%, Rehash=0, Collisions=1/80=1%
+# Finished Make data base on Fri Jul 22 10:39:05 2022
 
  
